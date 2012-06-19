@@ -1,0 +1,31 @@
+%p{:id => "notice"}
+  = notice 
+
+%p
+  %b
+    Name:
+  = @task.name 
+
+%p
+  %b
+    Start time:
+  = @task.start_time 
+
+%p
+  %b
+    End time:
+  = @task.end_time 
+
+%p
+  %b
+    Total:
+  = @task.total 
+
+%p
+  %b
+    Customer:
+  = customer_name(@task.customer_id)
+
+
+= link_to 'Edit', edit_task_path(@task)  |
+= link_to 'Back', tasks_path

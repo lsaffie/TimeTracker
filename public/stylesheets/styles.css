@@ -1,0 +1,44 @@
+html {
+  height: 100%; }
+
+body {
+  height: 100%;
+  background: #282828;
+  font-family: Helvetica;
+  font-size: 15px;
+  color: #282828; }
+
+.header {
+  margin: 10px 15%;
+  background: white;
+  padding: 5px 20px;
+  -moz-border-radius: 5px;
+  border-radius: 5px; }
+  .header a {
+    color: #282828;
+    text-decoration: none; }
+    .header a:hover {
+      color: black; }
+
+.container {
+  margin: 0 15%;
+  min-height: 100%;
+  background: white;
+  padding: 20px;
+  -moz-border-radius: 5px;
+  border-radius: 5px; }
+
+table {
+  border: 1px solid #777777;
+  border-collapse: collapse; }
+  table tr {
+    border: 1px solid #777777;
+    border-collapse: collapse;
+    text-align: left; }
+  table th {
+    background: #dddddd;
+    padding: 5px; }
+  table td {
+    border-collapse: collapse;
+    width: 100px;
+    padding: 5px; }

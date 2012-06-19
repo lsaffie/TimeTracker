@@ -1,0 +1,35 @@
+%h1
+  Listing tasks
+
+%table
+  %tr
+    %th
+      Date
+    %th
+      Customer
+    %th
+      Name
+    %th
+      Start time
+    %th
+      End time
+    %th
+      Total
+    %th
+    %th
+    %th
+
+  -@tasks.each do |task|
+    %tr
+      %td= task.start_time.strftime("%Y-%m-%d")
+      %td= customer_name(task.customer_id)
+      %td= task.name 
+      %td= task.start_time.strftime("%H:%M")
+      %td= task.end_time.strftime("%H:%M")
+      %td= task.total
+      %td= link_to 'Show', task 
+      %td= link_to 'Edit', edit_task_path(task) 
+      %td= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete 
+%br
+
+= link_to 'New Task', new_task_path
