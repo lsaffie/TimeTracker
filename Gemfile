@@ -9,7 +9,6 @@ gem 'rails', '3.0.9'
 gem 'mysql2', '< 0.3'
 gem 'haml'
 gem 'sass'
-gem 'ruby-debug19'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -19,7 +18,6 @@ gem 'ruby-debug19'
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
-# gem 'ruby-debug19', :require => 'ruby-debug'
 
 # Bundle the extra gems:
 # gem 'bj'
@@ -30,6 +28,7 @@ gem 'ruby-debug19'
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
-# group :development, :test do
+group :development, :test do
 #   gem 'webrat'
-# end
+  gem 'ruby-debug19', :require => 'ruby-debug'
+end
