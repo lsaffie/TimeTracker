@@ -9,6 +9,10 @@
     =javascript_include_tag :defaults
     =csrf_meta_tag
   %body
+    .notice
+      =notice
+    .alert
+      =alert
     .header
       =link_to "customers", customers_path
       |

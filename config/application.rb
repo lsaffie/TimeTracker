@@ -39,5 +39,10 @@ module TimeTracker
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    # Devise config
+    # forcing your application to not access the DB
+    # or load models when precompiling your assets.
+    #config.assets.initialize_on_precompile = false
   end
 end
