@@ -13,9 +13,8 @@
       =notice
     .alert
       =alert
-    .header
-      =link_to "customers", customers_path
-      |
-      =link_to "tasks", tasks_path
+
+    =render :partial => 'layouts/header.html.haml' if user_signed_in?
+
     .container
       =yield

@@ -18,7 +18,12 @@ body {
     color: #282828;
     text-decoration: none; }
     .header a:hover {
-      color: black; }
+      color: black;
+      text-decoration: underline; }
+  .header .application_links {
+    float: left; }
+  .header .system_links {
+    text-align: right; }
 
 .container {
   margin: 0 15%;
