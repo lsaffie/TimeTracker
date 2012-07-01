@@ -16,19 +16,18 @@
     %th
       Total
     %th
-    %th
+      Invoiced at
     %th
 
   -@tasks.each do |task|
-    %tr
-      %td= task.start_time.strftime("%Y-%m-%d")
+    %tr{:class => get_class(task.invoiced)}
+      %td= task.start_time.to_s(:short)
       %td= customer_name(task.customer_id)
-      %td= task.name 
+      %td= link_to task.name, task
       %td= task.start_time.strftime("%H:%M")
       %td= task.end_time.strftime("%H:%M")
       %td= task.total
-      %td= link_to 'Show', task 
-      %td= link_to 'Edit', edit_task_path(task) 
+      %td= task.invoiced_at.to_s(:short)
       %td= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete 
 %br
 

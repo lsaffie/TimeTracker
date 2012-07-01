@@ -26,6 +26,8 @@
     Customer:
   = customer_name(@task.customer_id)
 
+%p
+  -print_invoiced_row(@task)
 
 = link_to 'Edit', edit_task_path(@task)  |
 = link_to 'Back', tasks_path
