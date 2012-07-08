@@ -2,8 +2,6 @@ class CreateTasks < ActiveRecord::Migration
   def self.up
     create_table :tasks do |t|
       t.string :name
-      t.datetime :start_time
-      t.datetime :end_time
       t.float :total
       t.integer :customer_id
 

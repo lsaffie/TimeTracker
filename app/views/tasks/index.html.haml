@@ -1,5 +1,7 @@
 %h1
-  Listing tasks
+  Listing
+  =customer_name(@tasks.first.customer_id)    
+  Tasks
 
 %table
   %tr
@@ -10,25 +12,24 @@
     %th
       Name
     %th
-      Start time
-    %th
-      End time
-    %th
       Total
     %th
       Invoiced at
     %th
+    %th
+    %th
+
 
   -@tasks.each do |task|
     %tr{:class => get_class(task.invoiced)}
       %td= task.start_time.to_s(:short)
       %td= customer_name(task.customer_id)
-      %td= link_to task.name, task
-      %td= task.start_time.strftime("%H:%M")
-      %td= task.end_time.strftime("%H:%M")
+      %td= link_to task.name, customer_task_path(task.customer,task)
       %td= task.total
       %td= task.invoiced_at.to_s(:short) unless task.invoiced_at.nil?
-      %td= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete 
+      %td= start_link(task)
+      %td= stop_link(task)
+      %td= link_to 'Destroy', customer_task_path(task.customer, task), :confirm => 'Are you sure?', :method => :delete 
 %br
 
-= link_to 'New Task', new_task_path
+= link_to 'New Task', new_customer_task_path(@tasks.first.customer)

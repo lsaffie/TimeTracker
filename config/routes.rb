@@ -1,10 +1,12 @@
 TimeTracker::Application.routes.draw do
   devise_for :users
 
-  resources :tasks
-
   resources :customers do
-    resources :tasks
+    resources :tasks do 
+      resources :sub_times do
+        get 'stop', :on => :member
+      end
+    end
   end
 
   # The priority is based upon order of creation:
@@ -57,7 +59,7 @@ TimeTracker::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
-  root :to => "tasks#index"
+  root :to => "customers#index"
 
   # See how all your routes lay out with "rake routes"
 

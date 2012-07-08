@@ -8,16 +8,6 @@
 
 %p
   %b
-    Start time:
-  = @task.start_time 
-
-%p
-  %b
-    End time:
-  = @task.end_time 
-
-%p
-  %b
     Total:
   = @task.total 
 
@@ -29,5 +19,5 @@
 %p
   -print_invoiced_row(@task)
 
-= link_to 'Edit', edit_task_path(@task)  |
-= link_to 'Back', tasks_path
+= link_to 'Edit', edit_customer_task_path(@task.customer, @task)
+= link_to 'Back', customer_tasks_path(@task.customer)

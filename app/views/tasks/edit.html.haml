@@ -3,6 +3,6 @@
 
 =render 'form'
 
-=link_to 'Show', @task 
+=link_to 'Show', customer_task_path(@task.customer,@task)
 |
-=link_to 'Back', tasks_path
+=link_to 'Back', customer_tasks_path(@task.customer)

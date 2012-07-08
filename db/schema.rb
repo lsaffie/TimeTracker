@@ -10,10 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120701170218) do
+ActiveRecord::Schema.define(:version => 20120705223559) do
 
   create_table "customers", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sub_times", :force => true do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.integer  "task_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

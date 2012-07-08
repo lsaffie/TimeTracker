@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Start:</b>
+  <%= @sub_time.start %>
+</p>
+
+<p>
+  <b>End:</b>
+  <%= @sub_time.end %>
+</p>
+
+<p>
+  <b>Task:</b>
+  <%= @sub_time.task_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_sub_time_path(@sub_time) %> |
+<%= link_to 'Back', sub_times_path %>
