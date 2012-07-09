@@ -101,7 +101,8 @@ class TasksController < ApplicationController
   def complete
     @customer = Customer.find(params[:customer_id])
     @task = @customer.tasks.find(params[:id])
-    @task.update_attributes(:completed => true)
+    @task.update_attributes(:completed => true,
+                            :completed_at => Time.now)
 
     respond_to do |format|
       format.html { redirect_to customer_tasks_path(@customer) }
@@ -112,7 +113,8 @@ class TasksController < ApplicationController
   def uncomplete
     @customer = Customer.find(params[:customer_id])
     @task = @customer.tasks.find(params[:id])
-    @task.update_attributes(:completed => false)
+    @task.update_attributes(:completed => false,
+                            :completed_at => nil)
 
     respond_to do |format|
       format.html { redirect_to customer_tasks_path(@customer) }
