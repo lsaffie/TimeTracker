@@ -1,6 +1,6 @@
 module TasksHelper
-  def customer_name(id)
-    customer=Customer.find id
+  def customer_name
+    customer=Customer.find(params[:customer_id])
     customer.name
   end
 
