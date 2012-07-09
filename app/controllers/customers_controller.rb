@@ -25,7 +25,6 @@ class CustomersController < ApplicationController
   # GET /customers/new.xml
   def new
     @customer = Customer.new
-    @task = @customers.tasks.build
 
     respond_to do |format|
       format.html # new.html.erb

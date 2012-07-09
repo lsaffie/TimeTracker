@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.xml
   def index
-    @tasks = Task.all
+    @customer = Customer.find(params[:customer_id])
+    @tasks = @customer.tasks
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,6 +42,7 @@ class TasksController < ApplicationController
   # POST /tasks.xml
   def create
     @task = Task.new(params[:task])
+    @task.customer_id = params[:customer_id]
 
     if @task.invoiced?
       @task.invoiced_at = Time.now
@@ -48,7 +50,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to(customer_task_path(@task.customer, @task), :notice => 'Task was successfully created.') }
+        format.html { redirect_to(customer_tasks_path(@task.customer), :notice => 'Task was successfully created.') }
         format.xml  { render :xml => @task, :status => :created, :location => @task }
       else
         format.html { render :action => "new" }
@@ -80,11 +82,12 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   # DELETE /tasks/1.xml
   def destroy
-    @task = Task.find(params[:id])
+    @customer = Customer.find(params[:customer_id])
+    @task = @customer.tasks.find(params[:id])
     @task.destroy
 
     respond_to do |format|
-      format.html { redirect_to(tasks_url) }
+      format.html { redirect_to customer_tasks_path(@customer) }
       format.xml  { head :ok }
     end
   end

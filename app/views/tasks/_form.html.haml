@@ -16,16 +16,6 @@
     = f.text_field :name 
   
   %div{:class =>"field"}
-    = f.label :total 
-    %br
-    = f.text_field :total, :readonly => true
-  
-  %div{:class =>"field"}
-    = f.label :customer_id
-    %br
-    =collection_select(:task, :customer_id, Customer.all, :id, :name)
-  
-  %div{:class =>"field"}
     = f.label :invoiced?
     %br
     = f.check_box :invoiced

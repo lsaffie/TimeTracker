@@ -4,8 +4,14 @@ module TasksHelper
     customer.name
   end
 
-  def get_class(invoiced)
-    return "disabled" if invoiced
+  def get_class(task)
+    return "disabled" if task.invoiced
+
+    unless task.sub_times.empty?
+      if task.sub_times.last.end.nil?
+        return "running"
+      end
+    end
   end
 
   def print_invoiced_row(task)
@@ -31,6 +37,18 @@ module TasksHelper
       eval = task.sub_times.last.end.nil?
       link_to_if eval, 'stop', stop_customer_task_sub_time_path(task.customer, task, task.sub_times.last)
     end
+  end
+
+  def print_running_task_time(task)
+    current = ''
+    if !task.sub_times.last.nil?
+      subtime = task.sub_times.last
+      if subtime.end.nil?
+        current = (Time.now - subtime.start) / 60
+      end
+    end
+
+    haml_tag(:td, current.to_i)
   end
 
 end

@@ -51,3 +51,7 @@ table {
     color: #bebebe; }
     table .disabled a {
       color: #bebebe; }
+  table .running {
+    color: green; }
+    table .running a {
+      color: green; }

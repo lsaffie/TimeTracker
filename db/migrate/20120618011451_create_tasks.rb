@@ -2,7 +2,7 @@ class CreateTasks < ActiveRecord::Migration
   def self.up
     create_table :tasks do |t|
       t.string :name
-      t.float :total
+      t.integer :total, :default => 0
       t.integer :customer_id
 
       t.timestamps

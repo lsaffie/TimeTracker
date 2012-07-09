@@ -86,9 +86,9 @@ class SubTimesController < ApplicationController
   def stop
     @sub_time = SubTime.find(params[:id])
     @sub_time.end = Time.now
-    total = (@sub_time.end - @sub_time.start) / 3600
+    total = (@sub_time.end - @sub_time.start) / 60
     task = @sub_time.task
-    task.total += total
+    task.total += total.to_i
 
     if @sub_time.save && task.save
       redirect_to customer_tasks_url(@sub_time.task.customer)

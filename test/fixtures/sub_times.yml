@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  start: 2012-07-05 18:35:59
+  end: 2012-07-05 18:35:59
+  task_id: 1
+
+two:
+  start: 2012-07-05 18:35:59
+  end: 2012-07-05 18:35:59
+  task_id: 1

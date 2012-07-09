@@ -28,9 +28,7 @@ ActiveRecord::Schema.define(:version => 20120705223559) do
 
   create_table "tasks", :force => true do |t|
     t.string   "name"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.float    "total"
+    t.float    "total",       :default => 0.0
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
