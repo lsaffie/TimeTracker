@@ -3,6 +3,8 @@ TimeTracker::Application.routes.draw do
 
   resources :customers do
     resources :tasks do 
+      get 'complete', :on => :member
+      get 'uncomplete', :on => :member
       resources :sub_times do
         get 'stop', :on => :member
       end

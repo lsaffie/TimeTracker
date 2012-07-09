@@ -3,7 +3,8 @@ class TasksController < ApplicationController
   # GET /tasks.xml
   def index
     @customer = Customer.find(params[:customer_id])
-    @tasks = @customer.tasks
+    @tasks = @customer.tasks.where(:completed => false)
+    @completed_tasks = @customer.tasks.where(:completed => true)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,7 +26,8 @@ class TasksController < ApplicationController
   # GET /tasks/new
   # GET /tasks/new.xml
   def new
-    @task = Task.new
+    @customer = Customer.find(params[:customer_id])
+    @task = @customer.tasks.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,7 +37,8 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
-    @task = Task.find(params[:id])
+    @customer = Customer.find(params[:customer_id])
+    @task = @customer.tasks.find(params[:id])
   end
 
   # POST /tasks
@@ -62,7 +65,10 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.xml
   def update
-    @task = Task.find(params[:id])
+    require 'ruby-debug'
+    debugger
+    @customer = Customer.find(params[:customer_id])
+    @task = @customer.tasks.find(params[:id])
 
     if @task.invoiced?
       @task.invoiced_at = Time.now
@@ -70,7 +76,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.update_attributes(params[:task])
-        format.html { redirect_to(customer_task(@task), :notice => 'Task was successfully updated.') }
+        format.html { redirect_to(customer_task_path(@customer, @task), :notice => 'Task was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -85,6 +91,28 @@ class TasksController < ApplicationController
     @customer = Customer.find(params[:customer_id])
     @task = @customer.tasks.find(params[:id])
     @task.destroy
+
+    respond_to do |format|
+      format.html { redirect_to customer_tasks_path(@customer) }
+      format.xml  { head :ok }
+    end
+  end
+
+  def complete
+    @customer = Customer.find(params[:customer_id])
+    @task = @customer.tasks.find(params[:id])
+    @task.update_attributes(:completed => true)
+
+    respond_to do |format|
+      format.html { redirect_to customer_tasks_path(@customer) }
+      format.xml  { head :ok }
+    end
+  end
+
+  def uncomplete
+    @customer = Customer.find(params[:customer_id])
+    @task = @customer.tasks.find(params[:id])
+    @task.update_attributes(:completed => false)
 
     respond_to do |format|
       format.html { redirect_to customer_tasks_path(@customer) }

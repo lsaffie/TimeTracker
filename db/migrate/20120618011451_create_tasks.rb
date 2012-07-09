@@ -4,6 +4,7 @@ class CreateTasks < ActiveRecord::Migration
       t.string :name
       t.integer :total, :default => 0
       t.integer :customer_id
+      t.boolean :completed
 
       t.timestamps
     end

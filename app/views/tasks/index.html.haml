@@ -27,7 +27,9 @@
       %td= task.invoiced_at.to_s(:short) unless task.invoiced_at.nil?
       %td= start_link(task)
       %td= stop_link(task)
-      %td= link_to 'Destroy', customer_task_path(task.customer, task), :confirm => 'Are you sure?', :method => :delete 
+      %td= button_to 'Complete', complete_customer_task_path(@customer, task), :method => :get
 %br
 
 = link_to 'New Task', new_customer_task_path(@customer)
+
+= render :partial => 'completed_tasks.html.haml'

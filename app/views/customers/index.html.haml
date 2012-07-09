@@ -5,7 +5,6 @@
   %tr
     %th Name
     %th
-    %th
 
   -@customers.each do |customer|
     %tr
@@ -13,8 +12,6 @@
         = link_to customer.name, customer
       %td
         = link_to 'tasks', customer_tasks_path(customer)
-      %td
-        = link_to 'Destroy', customer, :confirm => 'Are you sure?', :method => :delete 
 
 %br
 
