@@ -3,8 +3,9 @@ class TasksController < ApplicationController
   # GET /tasks.xml
   def index
     @customer = Customer.find(params[:customer_id])
-    @tasks = @customer.tasks.where(:completed => false)
-    @completed_tasks = @customer.tasks.where(:completed => true)
+    @tasks = @customer.tasks(:order => "created_at").  where(:completed => false)
+    @completed_tasks = @customer.tasks(:order => "created_at").
+      where(:completed => true)
 
     respond_to do |format|
       format.html # index.html.erb

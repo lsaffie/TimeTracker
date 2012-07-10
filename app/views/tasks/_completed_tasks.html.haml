@@ -6,23 +6,20 @@
     %th
       Created At
     %th
-      Name
+      Completed at
     %th
       Total(min)
     %th
-      Current Task (min)
+      Name
     %th
       Invoiced at
-    %th
-      Completed at
     %th
 
   -@completed_tasks.each do |task|
     %tr{:class => get_class(task)}
       %td= task.created_at.to_s(:short)
-      %td= link_to task.name, customer_task_path(task.customer,task)
-      %td= task.total
-      -print_running_task_time(task)
-      %td= task.invoiced_at.to_s(:short) unless task.invoiced_at.nil?
       %td= task.completed_at.to_s(:short)
+      %td= task.total
+      %td= link_to task.name, customer_task_path(task.customer,task)
+      %td= task.invoiced_at.to_s(:short) unless task.invoiced_at.nil?
       %td= button_to 'Uncomplete', uncomplete_customer_task_path(@customer, task), :method => :get

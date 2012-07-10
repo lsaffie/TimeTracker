@@ -27,7 +27,7 @@
       %td= task.invoiced_at.to_s(:short) unless task.invoiced_at.nil?
       %td= start_link(task)
       %td= stop_link(task)
-      %td= button_to 'Complete', complete_customer_task_path(@customer, task), :method => :get
+      %td= button_to 'Complete!', complete_customer_task_path(@customer, task), :method => :get
 %br
 
 = link_to 'New Task', new_customer_task_path(@customer)
