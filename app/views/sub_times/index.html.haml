@@ -1,0 +1,20 @@
+%h1
+  Listing sub_times
+
+%table
+  %tr
+    %th 
+      Start
+    %th
+      End
+    %th
+      Task
+    %th
+    %th
+    %th
+
+  -@sub_times.each do |sub_time|
+    %tr
+      %td= link_to sub_time.start, sub_time
+      %td= sub_time.end
+      %td= sub_time.task_id

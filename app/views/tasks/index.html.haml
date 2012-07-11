@@ -1,34 +1,34 @@
 %h1
   =customer_name
   Tasks
-
 %table
-  %tr
-    %th
-      Created At
-    %th
-      Name
-    %th
-      Total(min)
-    %th
-      Current Task (min)
-    %th
-      Invoiced at
-    %th
-    %th
-    %th
+  %thead
+    %tr
+      %th
+        Created At
+      %th
+        Name
+      %th
+        Total(min)
+      %th
+        Current Task (min)
+      %th
+        Invoiced at
+      %th
+      %th
+      %th
 
-  -@tasks.each do |task|
-    %tr{:class => get_class(task)}
-      %td= task.created_at.to_s(:short)
-      %td= link_to task.name, customer_task_path(task.customer,task)
-      %td= task.total
-      -print_running_task_time(task)
-      %td= task.invoiced_at.to_s(:short) unless task.invoiced_at.nil?
-      %td= start_link(task)
-      %td= stop_link(task)
-      %td= button_to 'Complete!', complete_customer_task_path(@customer, task), :method => :get
-%br
+  %tbody
+    -@tasks.each do |task|
+      %tr{:class => get_class(task)}
+        %td= task.created_at.to_s(:short)
+        %td= link_to task.name, customer_task_path(task.customer,task)
+        %td= task.total
+        -print_running_task_time(task)
+        %td= task.invoiced_at.to_s(:short) unless task.invoiced_at.nil?
+        %td= start_link(task)
+        %td= stop_link(task)
+        %td= button_to 'Complete!', complete_customer_task_path(@customer, task), :method => :get
 
 = link_to 'New Task', new_customer_task_path(@customer)
 

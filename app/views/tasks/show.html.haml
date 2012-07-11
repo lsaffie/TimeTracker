@@ -19,6 +19,7 @@
 %p
   -print_invoiced_row(@task)
 
+= link_to 'sub_tasks', customer_task_sub_times_path(@task.customer, @task)
 = link_to 'Edit', edit_customer_task_path(@task.customer, @task)
 = link_to 'Back', customer_tasks_path(@task.customer)
 = link_to 'Destroy', customer_task_path(@task.customer, @task), :confirm => 'Are you sure?', :method => :delete 

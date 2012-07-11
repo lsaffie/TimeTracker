@@ -1,10 +1,13 @@
 TimeTracker::Application.routes.draw do
   devise_for :users
 
+  resources :sub_times
+
   resources :customers do
     resources :tasks do 
       get 'complete', :on => :member
       get 'uncomplete', :on => :member
+      get 'multiple_edit', :on => :collection
       resources :sub_times do
         get 'stop', :on => :member
       end
