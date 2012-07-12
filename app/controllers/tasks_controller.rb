@@ -122,4 +122,18 @@ class TasksController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def summary
+    customer = Customer.find(params[:customer_id])
+    tasks = customer.tasks
+    @subtimes= []
+    tasks.each do |t|
+      t.sub_times.each do |tt|
+        @subtimes << tt
+      end
+    end
+    @subtimes.sort! {|a,b| a.start <=> b.start}
+    @total = 0
+    @subtimes.each {|st| @total += (st.end - st.start)}
+  end
 end

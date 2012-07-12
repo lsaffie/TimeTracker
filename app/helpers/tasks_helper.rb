@@ -51,4 +51,12 @@ module TasksHelper
     haml_tag(:td, current.to_i)
   end
 
+  def to_mins(amount)
+    (amount/60).ceil
+  end
+
+  def to_hrs(amount)
+    (amount/3600)
+  end
+
 end
