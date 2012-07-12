@@ -1,0 +1,29 @@
+%h1
+  =customer_name
+  Tasks
+%table
+  %thead
+    %tr
+      %th
+        Name
+      %th
+        Started at
+      %th
+        Ended at
+      %th
+        Total(min)
+      %th
+
+  %tbody
+    -@subtimes.each do |subtime|
+      %tr
+        %td= subtime.task.name
+        %td= subtime.start.to_s(:short)
+        %td= subtime.end.to_s(:short)
+        %td= ((subtime.end-subtime.start)/60).ceil
+
+  Total = 
+  = to_mins(@total)
+  (mins)
+  = to_hrs(@total)
+  (hrs)
