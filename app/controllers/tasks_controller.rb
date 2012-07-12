@@ -126,6 +126,8 @@ class TasksController < ApplicationController
   def summary
     customer = Customer.find(params[:customer_id])
     tasks = customer.tasks
+    require 'ruby-debug'
+    debugger
     @subtimes= []
     tasks.each do |t|
       t.sub_times.each do |tt|

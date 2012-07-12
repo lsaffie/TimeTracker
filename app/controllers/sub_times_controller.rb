@@ -2,7 +2,8 @@ class SubTimesController < ApplicationController
   # GET /sub_times
   # GET /sub_times.xml
   def index
-    @sub_times = SubTime.all
+    task = Task.find(params[:task_id])
+    @sub_times = task.sub_times
 
     respond_to do |format|
       format.html # index.html.erb
