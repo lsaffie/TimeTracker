@@ -125,17 +125,13 @@ class TasksController < ApplicationController
 
   def summary
     customer = Customer.find(params[:customer_id])
-    tasks = customer.tasks
-    require 'ruby-debug'
-    debugger
-    @subtimes= []
-    tasks.each do |t|
+    subtimes= []
+    customer.tasks.each do |t|
       t.sub_times.each do |tt|
-        @subtimes << tt
+        subtimes << tt
       end
     end
-    @subtimes.sort! {|a,b| a.start <=> b.start}
-    @total = 0
-    @subtimes.each {|st| @total += (st.end - st.start)}
+    @grouped_subtimes = subtimes.group_by(&:group_by_criteria)
   end
+
 end

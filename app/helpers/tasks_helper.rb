@@ -1,4 +1,6 @@
 module TasksHelper
+  @@previous_time = Time.now
+
   def customer_name
     customer=Customer.find(params[:customer_id])
     customer.name
@@ -51,12 +53,25 @@ module TasksHelper
     haml_tag(:td, current.to_i)
   end
 
-  def to_mins(amount)
-    (amount/60).ceil
-  end
 
   def to_hrs(amount)
-    (amount/3600)
+    (amount/3600).round(2)
   end
+
+  def day_row(subtime)
+    if subtime.start > @@previous_time
+      haml_tag(:tr, :class => "gray_row") do
+        haml_tag(:td, "blah")
+      end
+    end
+    @previous_time = subtime.start
+  end
+
+  def total(subtimes)
+    total = 0
+    subtimes.each {|s| total += s.to_hrs}
+    haml_concat(total)
+  end
+
 
 end

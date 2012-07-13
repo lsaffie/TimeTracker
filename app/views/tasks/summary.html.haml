@@ -1,6 +1,6 @@
 %h1
   =customer_name
-  Tasks
+  Summary
 %table
   %thead
     %tr
@@ -15,15 +15,30 @@
       %th
 
   %tbody
-    -@subtimes.each do |subtime|
-      %tr
-        %td= subtime.task.name
-        %td= subtime.start.to_s(:short)
-        %td= subtime.end.to_s(:short)
-        %td= ((subtime.end-subtime.start)/60).ceil
+    -@grouped_subtimes.each do |start,subs|
+      -subs.each do |subtime|
+        %tr
+          %td= subtime.task.name
+          %td= subtime.start.to_s(:short)
+          %td= subtime.end.to_s(:short)
+          %td= ((subtime.end-subtime.start)/60).ceil
+          %td= link_to 'edit', edit_sub_time_path(subtime)
+      %tr{:class => 'gray'}
+        %td
+          %b
+            Total
+        %td{:colspan => "2"}
+          %b
+            =start.to_date
+        %td{:colspan => "2"}
+          %b
+            -total(subs) 
+            hrs
+          
+
 
   Total = 
-  = to_mins(@total)
+  = #to_mins(@total)
   (mins)
-  = to_hrs(@total)
+  = #to_hrs(@total)
   (hrs)
