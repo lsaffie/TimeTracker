@@ -1,4 +1,4 @@
 class Task < ActiveRecord::Base
   belongs_to :customer
-  has_many :sub_times
+  has_many :sub_times, :order => "start"
 end
