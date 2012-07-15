@@ -2,8 +2,9 @@ class SubTimesController < ApplicationController
   # GET /sub_times
   # GET /sub_times.xml
   def index
-    task = Task.find(params[:task_id])
-    @sub_times = task.sub_times
+    @cutomer = Customer.find(params[:customer_id])
+    @task = Task.find(params[:task_id])
+    @sub_times = @task.sub_times
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +15,8 @@ class SubTimesController < ApplicationController
   # GET /sub_times/1
   # GET /sub_times/1.xml
   def show
+    @customer = Customer.find(params[:customer_id])
+    @task = Task.find(params[:task_id])
     @sub_time = SubTime.find(params[:id])
 
     respond_to do |format|
@@ -36,6 +39,7 @@ class SubTimesController < ApplicationController
 
   # GET /sub_times/1/edit
   def edit
+    @customer = Customer.find(params[:customer_id])
     @sub_time = SubTime.find(params[:id])
   end
 
@@ -58,11 +62,13 @@ class SubTimesController < ApplicationController
   # PUT /sub_times/1
   # PUT /sub_times/1.xml
   def update
+    @customer = Customer.find(params[:customer_id])
+    @task = Task.find(params[:task_id])
     @sub_time = SubTime.find(params[:id])
 
     respond_to do |format|
       if @sub_time.update_attributes(params[:sub_time])
-        format.html { redirect_to(@sub_time, :notice => 'Sub time was successfully updated.') }
+        format.html { redirect_to(customer_task_sub_time_path(@customer, @task, @sub_time), :notice => 'Sub time was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

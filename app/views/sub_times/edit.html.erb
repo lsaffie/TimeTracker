@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @sub_time %> |
-<%= link_to 'Back', sub_times_path %>
+<%= link_to 'Show', customer_task_sub_time_path(@customer, @sub_time.task, @sub_time) %> |
+<%= link_to 'Back', summary_customer_tasks_path(@customer)%>

@@ -124,9 +124,9 @@ class TasksController < ApplicationController
   end
 
   def summary
-    customer = Customer.find(params[:customer_id])
+    @customer = Customer.find(params[:customer_id])
     subtimes= []
-    customer.tasks.each do |t|
+    @customer.tasks.each do |t|
       t.sub_times.each do |tt|
         subtimes << tt
       end

@@ -22,7 +22,7 @@
           %td= subtime.start.to_s(:short)
           %td= subtime.end.to_s(:short)
           %td= ((subtime.end-subtime.start)/60).ceil
-          %td= link_to 'edit', edit_sub_time_path(subtime)
+          %td= link_to 'edit', edit_customer_task_sub_time_path(@customer, subtime.task, subtime)
       %tr{:class => 'gray'}
         %td
           %b

@@ -1,4 +1,4 @@
-<%= form_for(@sub_time) do |f| %>
+<%= form_for([@customer, @sub_time.task, @sub_time]) do |f| %>
   <% if @sub_time.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@sub_time.errors.count, "error") %> prohibited this sub_time from being saved:</h2>
@@ -18,10 +18,6 @@
   <div class="field">
     <%= f.label :end %><br />
     <%= f.datetime_select :end %>
-  </div>
-  <div class="field">
-    <%= f.label :task_id %><br />
-    <%= f.text_field :task_id %>
   </div>
   <div class="actions">
     <%= f.submit %>
