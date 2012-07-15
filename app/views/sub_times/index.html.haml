@@ -10,13 +10,12 @@
     %th
       Task
     %th
-    %th
-    %th
 
   -@sub_times.each do |sub_time|
     %tr
-      %td= link_to sub_time.start, sub_time
-      %td= sub_time.end
+      %td= sub_time.start.to_s(:db)
+      %td= sub_time.end.to_s(:db)
       %td= sub_time.task_id
+      %td= link_to 'edit', edit_customer_task_sub_time_path(@customer, sub_time.task, sub_time)
 
 =link_to "Tasks", customer_tasks_path(@customer)

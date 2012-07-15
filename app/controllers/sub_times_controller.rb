@@ -2,7 +2,7 @@ class SubTimesController < ApplicationController
   # GET /sub_times
   # GET /sub_times.xml
   def index
-    @cutomer = Customer.find(params[:customer_id])
+    @customer = Customer.find(params[:customer_id])
     @task = Task.find(params[:task_id])
     @sub_times = @task.sub_times
 
@@ -40,6 +40,7 @@ class SubTimesController < ApplicationController
   # GET /sub_times/1/edit
   def edit
     @customer = Customer.find(params[:customer_id])
+    @task = Task.find(params[:task_id])
     @sub_time = SubTime.find(params[:id])
   end
 

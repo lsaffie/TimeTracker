@@ -52,9 +52,8 @@ table {
     table .disabled a {
       color: #bebebe; }
   table .running {
-    color: green; }
-    table .running a {
-      color: green; }
+    color: black;
+    background: #99e699; }
 
 .gray {
   background: #dddddd; }
