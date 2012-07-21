@@ -44,9 +44,9 @@ set :branch, current_git_branch
 namespace :deploy do
   desc "starts unicorn"
   task :start, :roles => :app, :except => { :no_release => true } do 
-    run "cd #{current_path} && #{unicorn_binary} -c #{unicorn_config} -E #{rails_env} -D"
+    run "cd #{current_path} && bundle exec #{unicorn_binary} -c #{unicorn_config} -E #{rails_env} -D"
   end
-  task :stop, :roles => :app, :except => { :no_release => true } do 
+  task :stop, :on_error => :continue, :roles => :app, :except => { :no_release => true } do 
     run "kill `cat #{unicorn_pid}`"
   end
   task :graceful_stop, :roles => :app, :except => { :no_release => true } do
