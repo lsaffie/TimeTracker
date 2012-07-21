@@ -1,5 +1,7 @@
 require "bundler/capistrano"
 
+# add multistaging environment
+
 set :application, "tt"
 set :repository,  "git@github.com:lsaffie/TimeTracker.git"
 set :user, "local"
@@ -14,14 +16,15 @@ set :default_environment, {
 }
 
 set :scm, :git
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "192.168.69.173"                          # Your HTTP server, Apache/etc
-role :app, "192.168.69.173"                          # This may be the same as your `Web` server
-role :db,  "192.168.69.173", :primary => true # This is where Rails migrations will run
+role :web, "192.168.69.173"
+role :app, "192.168.69.173"
+role :db,  "192.168.69.173", :primary => true
 role :db,  "192.168.69.173"
 
-set :unicorn_binary, "/home/#{user}/.rbenv/shims/unicorn_rails"
+#set :unicorn_binary, "/home/#{user}/.rbenv/shims/unicorn_rails"
+#try without the path. It may pick it up from the dfault path set above
+set :unicorn_binary, "unicorn_rails"
 set :unicorn_config, "#{current_path}/config/unicorn.rb"
 set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
 
@@ -38,33 +41,20 @@ end
 
 set :branch, current_git_branch
 
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
-
 namespace :deploy do
+  desc "starts unicorn"
   task :start, :roles => :app, :except => { :no_release => true } do 
     run "cd #{current_path} && #{unicorn_binary} -c #{unicorn_config} -E #{rails_env} -D"
   end
   task :stop, :roles => :app, :except => { :no_release => true } do 
-    run "#{try_sudo} kill `cat #{unicorn_pid}`"
+    run "kill `cat #{unicorn_pid}`"
   end
   task :graceful_stop, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} kill -s QUIT `cat #{unicorn_pid}`"
+    run "kill -s QUIT `cat #{unicorn_pid}`"
   end
+  desc "zero downtime restart"
   task :reload, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} kill -s USR2 `cat #{unicorn_pid}`"
+    run "kill -s USR2 `cat #{unicorn_pid}`"
   end
   task :restart, :roles => :app, :except => { :no_release => true } do
     stop
