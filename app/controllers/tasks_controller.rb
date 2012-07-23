@@ -127,11 +127,23 @@ class TasksController < ApplicationController
     @customer = Customer.find(params[:customer_id])
     subtimes= []
     @customer.tasks.each do |t|
-      t.sub_times.each do |tt|
+      get_subtimes(t).each do |tt|
         subtimes << tt
       end
     end
     @grouped_subtimes = subtimes.group_by(&:group_by_criteria)
   end
+
+  private
+  def get_subtimes(task)
+    if params["start"] && params[:end]
+      start_date=Report.get_date(params["start"])
+      end_date=Report.get_date(params["end"])
+      return task.sub_times.find(:all, :conditions => ['start between ? and ?',start_date, end_date])
+    else
+      return task.sub_times
+    end
+  end
+
 
 end
