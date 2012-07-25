@@ -3,6 +3,7 @@ class TasksController < ApplicationController
   # GET /tasks.xml
   def index
     @customer = Customer.find(params[:customer_id])
+    @new_task = @customer.tasks.build
     @tasks = @customer.tasks(:order => "created_at").where(:completed => false)
     @completed_tasks = @customer.tasks(:order => "created_at").
       where(:completed => true)
