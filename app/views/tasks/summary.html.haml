@@ -15,6 +15,7 @@
       %th
 
   %tbody
+    -total_array =[]
     -@grouped_subtimes.each do |start,subs|
       -subs.each do |subtime|
         %tr
@@ -35,10 +36,4 @@
             -total(subs) 
             hrs
           
-
-
-  Total = 
-  = #to_mins(@total)
-  (mins)
-  = #to_hrs(@total)
-  (hrs)
+=image_tag(Gchart.line(:data => [1,2,3]))

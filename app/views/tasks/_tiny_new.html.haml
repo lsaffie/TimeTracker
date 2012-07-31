@@ -3,6 +3,7 @@
     = f.label :name 
     %br
     = f.text_field :name, :autofocus => true
+    = hidden_field_tag 'start' 
   
   %div{:class =>"actions"}
     = f.submit 

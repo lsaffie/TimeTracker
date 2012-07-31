@@ -9,6 +9,8 @@ gem 'pg'
 gem 'haml'
 gem 'sass'
 gem 'devise'
+gem 'annotate'
+gem 'jquery-rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -28,7 +30,10 @@ gem 'devise'
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
+gem "googlecharts", :require => "gchart"
 group :development, :test do
 #   gem 'webrat'
   gem 'ruby-debug19', :require => 'ruby-debug'
 end
+
+

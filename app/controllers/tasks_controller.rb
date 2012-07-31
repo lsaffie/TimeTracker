@@ -48,6 +48,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(params[:task])
     @task.customer_id = params[:customer_id]
+    start = params['start']
 
     if @task.invoiced?
       @task.invoiced_at = Time.now
@@ -55,6 +56,15 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
+        if !start.nil?
+          @task.save
+          SubTime.end_all
+          @sub_time = SubTime.new
+          @sub_time.start = Time.now
+          @sub_time.save!
+          @task.sub_times << @sub_time
+        end
+
         format.html { redirect_to(customer_tasks_path(@task.customer), :notice => 'Task was successfully created.') }
         format.xml  { render :xml => @task, :status => :created, :location => @task }
       else
