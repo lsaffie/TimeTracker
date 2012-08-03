@@ -1,6 +1,6 @@
 module TasksHelper
   @@previous_time = Time.now
-  @@grand_total = 0
+  @grand_total = 0
 
   def customer_name
     customer=Customer.find(params[:customer_id])
@@ -71,7 +71,7 @@ module TasksHelper
   def total(subtimes)
     total = 0
     subtimes.each {|s| total += s.to_hrs}
-    @@grand_total += total
+    @grand_total += total
     haml_concat(total)
   end
 
