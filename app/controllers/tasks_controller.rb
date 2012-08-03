@@ -150,7 +150,7 @@ class TasksController < ApplicationController
     if params["start"] && params[:end]
       start_date=Report.get_date(params["start"])
       end_date=Report.get_date(params["end"])
-      return task.sub_times.find(:all, :conditions => ['start between ? and ?',start_date, end_date])
+      return task.sub_times.find(:all, :conditions => ['start >= ? and start <= ?',start_date, end_date])
     else
       return task.sub_times
     end

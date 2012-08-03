@@ -33,7 +33,10 @@
             =start.to_date
         %td{:colspan => "2"}
           %b
+            -sum += total(subs)
             -total(subs) 
             hrs
-          
-=image_tag(Gchart.line(:data => [1,2,3]))
+
+%h1
+  Total
+  =sum
