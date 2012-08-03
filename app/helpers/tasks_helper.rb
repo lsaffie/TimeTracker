@@ -74,13 +74,11 @@ module TasksHelper
   end
 
   def get_grand_total(subtimes)
-    total = 0
     grand = 0
     subtimes.each do |start, subs|
       subs.each do |sub|
-        total += sub.to_hrs
+        grand += sub.to_hrs
       end
-      grand += total
     end
     haml_concat(grand)
   end
