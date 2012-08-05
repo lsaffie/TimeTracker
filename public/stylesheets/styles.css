@@ -35,7 +35,8 @@ body {
 
 table {
   border: 1px solid #777777;
-  border-collapse: collapse; }
+  border-collapse: collapse;
+  width: 100%; }
   table tr {
     border: 1px solid #777777;
     border-collapse: collapse;
@@ -45,7 +46,6 @@ table {
     padding: 5px; }
   table td {
     border-collapse: collapse;
-    width: 100px;
     padding: 5px; }
   table .disabled {
     color: #bebebe; }
@@ -57,3 +57,25 @@ table {
 
 .gray {
   background: #dddddd; }
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header {
+  margin-bottom: 8px; }
+  .ui-timepicker-div .ui-widget-header dl {
+    text-align: left; }
+    .ui-timepicker-div .ui-widget-header dl dt {
+      height: 25px;
+      margin-bottom: -25px; }
+    .ui-timepicker-div .ui-widget-header dl dd {
+      margin: 0 10px 10px 65px; }
+  .ui-timepicker-div .ui-widget-header td {
+    font-size: 90%; }
+
+.ui-tpicker-grid-label {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0; }
+
+.right-aligned {
+  text-align: right; }

@@ -17,6 +17,10 @@ class SubTime < ActiveRecord::Base
     start.to_date.to_s(:db)
   end
 
+  def total
+    to_hrs
+  end
+
   def to_mins
     ((self.end- self.start)/60).ceil
   end

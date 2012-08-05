@@ -8,6 +8,8 @@
     %th
       End
     %th
+      Total (hrs)
+    %th
       Task
     %th
 
@@ -15,7 +17,8 @@
     %tr
       %td= sub_time.start.to_s(:db)
       %td= sub_time.end.to_s(:db)
-      %td= sub_time.task_id
+      %td= sub_time.total
+      %td= sub_time.task.name
       %td= link_to 'edit', edit_customer_task_sub_time_path(@customer, sub_time.task, sub_time)
 
 =link_to "Tasks", customer_tasks_path(@customer)

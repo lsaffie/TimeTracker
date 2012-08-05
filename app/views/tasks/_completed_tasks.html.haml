@@ -12,8 +12,6 @@
     %th
       Name
     %th
-      Invoiced at
-    %th
 
   -@completed_tasks.each do |task|
     %tr{:class => get_class(task)}
@@ -21,5 +19,4 @@
       %td= task.completed_at.to_s(:short)
       %td= task.total
       %td= link_to task.name, customer_task_path(task.customer,task)
-      %td= task.invoiced_at.to_s(:short) unless task.invoiced_at.nil?
       %td= button_to 'Uncomplete', uncomplete_customer_task_path(@customer, task), :method => :get

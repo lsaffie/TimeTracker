@@ -12,6 +12,7 @@ TimeTracker::Application.routes.draw do
       get 'uncomplete', :on => :member
       get 'multiple_edit', :on => :collection
       get 'summary', :on => :collection
+      get 'complete_all', :on => :collection
       resources :sub_times do
         get 'stop', :on => :member
       end

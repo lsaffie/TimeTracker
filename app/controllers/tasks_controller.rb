@@ -145,16 +145,22 @@ class TasksController < ApplicationController
     @grouped_subtimes = subtimes.group_by(&:group_by_criteria)
   end
 
+  def complete_all
+    @customer = Customer.find(params[:customer_id])
+    @tasks = @customer.tasks.where(:completed => false)
+    @tasks.each {|t| t.update_attributes!(:completed => true, :completed_at => Time.now)}
+    redirect_to customer_tasks_path(@customer)
+  end
+
   private
   def get_subtimes(task)
     if params["start"] && params[:end]
       start_date=Report.get_date(params["start"])
       end_date=Report.get_date(params["end"])
-      return task.sub_times.find(:all, :conditions => ['start >= ? and start <= ?',start_date, end_date])
+      return task.sub_times.find(:all, :conditions => ['DATE(start) >= ? and DATE(start) <= ?',start_date, end_date])
     else
       return task.sub_times
     end
   end
-
 
 end

@@ -115,7 +115,7 @@ class SubTimesController < ApplicationController
   def set_task_total
     total = (@sub_time.end - @sub_time.start) / 60
     task = @sub_time.task
-    task.total += total.to_i
+    task.total += total.ceil
     task.save!
   end
 

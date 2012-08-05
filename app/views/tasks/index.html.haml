@@ -3,6 +3,8 @@
 %h2
   =customer_name
   Tasks
+.right-aligned
+  =button_to "Complete all", complete_all_customer_tasks_path(@customer), :method => :get
 %table
   %thead
     %tr
@@ -14,8 +16,6 @@
         Total(min)
       %th
         Current Task (min)
-      %th
-        Invoiced at
       %th
       %th
       %th
@@ -29,7 +29,6 @@
         %td= link_to task.name, customer_task_path(task.customer,task)
         %td= task.total
         -print_running_task_time(task)
-        %td= task.invoiced_at.to_s(:short) unless task.invoiced_at.nil?
         %td= start_link(task)
         %td= stop_link(task)
         %td= link_to 'sub_tasks', customer_task_sub_times_path(task.customer, task)
