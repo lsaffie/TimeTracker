@@ -30,11 +30,6 @@ class SubTimesController < ApplicationController
   def new
     @sub_time = SubTime.new
     start
-
-    #respond_to do |format|
-    #  format.html # new.html.erb
-    #  format.xml  { render :xml => @sub_time }
-    #end
   end
 
   # GET /sub_times/1/edit

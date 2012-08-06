@@ -20,7 +20,7 @@
       %th
       %th
       %th
-        subtasks
+      %th
 
   %tbody
     -@tasks.each do |task|
@@ -33,6 +33,7 @@
         %td= stop_link(task)
         %td= link_to 'sub_tasks', customer_task_sub_times_path(task.customer, task)
         %td= button_to 'Complete!', complete_customer_task_path(@customer, task), :method => :get
+        %td= button_to 'delete!', customer_task_path(@customer, task), :method => :delete
 
 = link_to 'New Task', new_customer_task_path(@customer)
 = link_to 'summary', summary_customer_tasks_path(@customer)

@@ -9,7 +9,7 @@
 #
 
 class Customer < ActiveRecord::Base
-  has_many :tasks
+  has_many :tasks, :order =>'completed_at DESC, created_at DESC'
 
   accepts_nested_attributes_for :tasks
 end
