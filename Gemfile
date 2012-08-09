@@ -9,6 +9,7 @@ gem 'pg'
 gem 'haml'
 gem 'sass'
 gem 'devise'
+gem 'declarative_authorization'
 gem 'annotate'
 gem 'jquery-rails'
 

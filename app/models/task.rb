@@ -25,4 +25,11 @@ class Task < ActiveRecord::Base
   def init
     self.completed = false
   end
+
+  def set_total
+    total = 0
+    self.sub_times.each {|sb| total += sb.to_mins}
+    self.total = total
+    self.save!
+  end
 end

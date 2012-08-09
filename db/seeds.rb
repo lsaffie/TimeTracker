@@ -12,5 +12,9 @@ User.create :email => 'luis@saffie.ca',
             :password => 'firetruck',
             :password_confirmation => 'firetruck'
 
+User.create :email => 'guest@saffie.ca',
+            :password => 'guest',
+            :password_confirmation => 'guest'
+
 #Default Customers
 Customer.create ([{ :name => 'eHealth' }, { :name => 'Handy Metrics' }])

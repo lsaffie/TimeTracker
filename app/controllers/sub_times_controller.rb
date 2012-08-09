@@ -61,11 +61,11 @@ class SubTimesController < ApplicationController
     @customer = Customer.find(params[:customer_id])
     @task = Task.find(params[:task_id])
     @sub_time = SubTime.find(params[:id])
-    set_task_total
 
     respond_to do |format|
       if @sub_time.update_attributes(params[:sub_time])
-        format.html { redirect_to(customer_task_sub_time_path(@customer, @task, @sub_time), :notice => 'Sub time was successfully updated.') }
+        @task.set_total
+        format.html { redirect_to(customer_task_sub_times_path(@customer, @task), :notice => 'Sub time was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -90,9 +90,9 @@ class SubTimesController < ApplicationController
   def stop
     @sub_time = SubTime.find(params[:id])
     @sub_time.end = Time.now
-    set_task_total
 
     if @sub_time.save
+      @sub_time.task.set_total
       redirect_to customer_tasks_url(@sub_time.task.customer)
     end
   end
@@ -107,11 +107,11 @@ class SubTimesController < ApplicationController
     end
   end
 
-  def set_task_total
-    total = (@sub_time.end - @sub_time.start) / 60
-    task = @sub_time.task
-    task.total += total.ceil
-    task.save!
-  end
+  #def set_task_total
+  #  total = (@sub_time.end - @sub_time.start) / 60
+  #  task = @sub_time.task
+  #  task.total += total.ceil
+  #  task.save!
+  #end
 
 end

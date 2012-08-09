@@ -32,16 +32,8 @@ class SubTime < ActiveRecord::Base
   def self.end_all
     find_all_by_end(nil).each do |st|
       st.update_attributes!(:end => Time.now) 
-      set_total(st)
+      st.task.set_total
     end
-  end
-
-  private 
-  def self.set_total(sub_time)
-    total = (sub_time.end - sub_time.start) / 60
-    task = sub_time.task
-    task.total += total.to_i
-    task.save!
   end
 
 end
