@@ -5,11 +5,11 @@ body {
   height: 100%;
   background: #282828;
   font-family: Helvetica;
-  font-size: 15px;
+  font-size: 13px;
   color: #282828; }
 
 .header {
-  margin: 10px 15%;
+  margin: 10px 10%;
   background: white;
   padding: 5px 20px;
   -moz-border-radius: 5px;
@@ -26,7 +26,7 @@ body {
     text-align: right; }
 
 .container {
-  margin: 0 15%;
+  margin: 0 10%;
   min-height: 100%;
   background: white;
   padding: 20px;
@@ -41,6 +41,8 @@ table {
     border: 1px solid #777777;
     border-collapse: collapse;
     text-align: left; }
+    table tr:hover {
+      background: #bbd7e4; }
   table th {
     background: #dddddd;
     padding: 5px; }
