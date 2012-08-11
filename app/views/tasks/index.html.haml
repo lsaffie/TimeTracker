@@ -26,7 +26,7 @@
     -@tasks.each do |task|
       %tr{:class => get_class(task)}
         %td= task.created_at.to_s(:short)
-        %td= link_to task.name, customer_task_path(task.customer,task)
+        %td.name= link_to task.name, customer_task_path(task.customer,task)
         %td= task.total
         -print_running_task_time(task)
         %td= start_link(task)

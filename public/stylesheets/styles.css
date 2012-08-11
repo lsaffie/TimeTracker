@@ -49,6 +49,8 @@ table {
   table td {
     border-collapse: collapse;
     padding: 5px; }
+  table td.name {
+    width: 30%; }
   table .disabled {
     color: #bebebe; }
     table .disabled a {
