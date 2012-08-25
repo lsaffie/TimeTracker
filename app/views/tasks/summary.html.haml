@@ -1,6 +1,10 @@
 %h2
   =customer_name
   Task Summary
+
+%p
+  =link_to "Export csv", summary_customer_tasks_path(@customer, :csv)
+
 %table
   %thead
     %tr
