@@ -26,7 +26,8 @@ class SubTime < ActiveRecord::Base
   end
 
   def to_hrs
-    ((self.end- self.start)/3600).round(2)
+    end_time = self.end.blank? ? Time.now : self.end
+    ((end_time - self.start)/3600).round(2)
   end
 
   def self.end_all

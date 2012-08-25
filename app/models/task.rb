@@ -32,4 +32,15 @@ class Task < ActiveRecord::Base
     self.total = total
     self.save!
   end
+
+  def self.total_time
+    total=0
+    self.all.each do |t|
+      t.sub_times.each do |st|
+        total += st.to_hrs
+      end
+    end
+    total.to_s
+  end
+
 end

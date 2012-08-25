@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  require 'csv'
+
   # GET /tasks
   # GET /tasks.xml
   def index
@@ -143,6 +145,26 @@ class TasksController < ApplicationController
       end
     end
     @grouped_subtimes = subtimes.group_by(&:group_by_criteria)
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        csv_string = CSV.generate do |csv|
+          cols = ["Name", "Start", "End", "Total(min)"]
+          csv << cols
+
+          @grouped_subtimes.each do |start, subtimes|
+            subtimes.each do |subtime|
+              csv << [subtime.task.name, subtime.start.to_s(:short), subtime.end.to_s(:short), ((subtime.end-subtime.start)/60).ceil]
+            end
+          end
+        end
+        send_data csv_string, :type => 'text/plain',
+          :filename => 'TimeTracker.csv',
+          :disposition => 'attachment'
+      end
+    end
+
   end
 
   def complete_all
@@ -162,5 +184,6 @@ class TasksController < ApplicationController
       return task.sub_times
     end
   end
+
 
 end

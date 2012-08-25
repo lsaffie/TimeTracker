@@ -35,6 +35,9 @@
         %td= button_to 'Complete!', complete_customer_task_path(@customer, task), :method => :get
         %td= button_to 'delete!', customer_task_path(@customer, task), :method => :delete
 
+  Current Time:
+  %b
+    =@tasks.total_time
 = link_to 'New Task', new_customer_task_path(@customer)
 = link_to 'summary', summary_customer_tasks_path(@customer)
 
