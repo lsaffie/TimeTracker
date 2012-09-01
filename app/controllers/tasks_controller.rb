@@ -79,8 +79,6 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.xml
   def update
-    require 'ruby-debug'
-    debugger
     @customer = Customer.find(params[:customer_id])
     @task = @customer.tasks.find(params[:id])
 
