@@ -43,3 +43,12 @@ group :development, :test do
 end
 
 
+# Needed for the new asset pipeline
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier',     '>= 1.0.3'
+end
+ 
+# jQuery is the default JavaScript library in Rails 3.1
+gem 'jquery-rails'
