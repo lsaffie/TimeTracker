@@ -15,8 +15,8 @@
 
   -@sub_times.each do |sub_time|
     %tr
-      %td= sub_time.start.to_s(:db)
-      %td= sub_time.end.to_s(:db)
+      %td= best_in_place sub_time, :start, :path => customer_task_sub_time_path(@customer, @task, sub_time), :type => :date
+      %td= best_in_place sub_time, :end, :path => customer_task_sub_time_path(@customer, @task, sub_time)
       %td= sub_time.total
       %td= sub_time.task.name
       %td= link_to 'edit', edit_customer_task_sub_time_path(@customer, sub_time.task, sub_time)

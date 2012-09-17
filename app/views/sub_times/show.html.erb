@@ -2,7 +2,7 @@
 
 <p>
   <b>Start:</b>
-  <%= @sub_time.start %>
+  <%= best_in_place @sub_time, :start, :path => customer_task_sub_time_path(@customer, @task, @sub_time) %>
 </p>
 
 <p>

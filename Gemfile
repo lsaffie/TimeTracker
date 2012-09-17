@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
+#gem 'rails', '3.0.9'
+gem 'rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -12,6 +13,7 @@ gem 'devise'
 gem 'declarative_authorization'
 gem 'annotate'
 gem 'jquery-rails'
+gem 'best_in_place'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -37,6 +39,7 @@ group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'factory_girl'
   gem 'rspec-rails'
+  gem 'railroad'
 end
 
 

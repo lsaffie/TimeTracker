@@ -22,6 +22,7 @@ class SubTimesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @sub_time }
+      format.json  { head :ok } # used by best in place
     end
   end
 
@@ -67,9 +68,12 @@ class SubTimesController < ApplicationController
         @task.set_total
         format.html { redirect_to(customer_task_sub_times_path(@customer, @task), :notice => 'Sub time was successfully updated.') }
         format.xml  { head :ok }
+        format.js 
+        format.json  { head :ok } # used by best in place
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @sub_time.errors, :status => :unprocessable_entity }
+        format.json { render :json => @sub_time.errors, :status => :unprocessable_entity }
       end
     end
   end

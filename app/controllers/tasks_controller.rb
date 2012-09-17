@@ -90,9 +90,11 @@ class TasksController < ApplicationController
       if @task.update_attributes(params[:task])
         format.html { redirect_to(customer_task_path(@customer, @task), :notice => 'Task was successfully updated.') }
         format.xml  { head :ok }
+        format.json  { head :ok } # used by best in place
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @task.errors, :status => :unprocessable_entity }
+        format.json { render :json => @task.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -182,6 +184,4 @@ class TasksController < ApplicationController
       return task.sub_times
     end
   end
-
-
 end

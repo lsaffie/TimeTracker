@@ -1,0 +1,20 @@
+=form_for [@customer, @sub_time.task, @sub_time], :remote => true do |f|
+  -if @sub_time.errors.any? 
+    #error_explanation
+      %h2
+        ="#{pluralize(@sub_time.errors.count, "error")} prohibited this sub_time from being saved:"
+
+  %ul
+    -@sub_time.errors.full_messages.each do |msg|
+      %li
+        =msg
+
+  #field
+    =f.label :start
+    =f.datetime_select :start
+
+  #field
+    =f.label :end
+    =f.datetime_select :end 
+  .actions
+    =f.submit
