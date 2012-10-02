@@ -13,10 +13,18 @@
       Total(min)
     %th
 
-  -@completed_tasks.each do |task|
-    %tr{:class => get_class(task)}
-      %td= task.created_at.to_s(:short)
-      %td.name= link_to task.name, customer_task_path(task.customer,task)
-      %td= task.completed_at.to_s(:short)
-      %td= task.total
-      %td= button_to 'Uncomplete', uncomplete_customer_task_path(@customer, task), :method => :get
+  -@completed_tasks.each do | date, tasks|
+    -tasks.each do |task|
+      %tr{:class => get_class(task)}
+        %td= task.created_at.to_s(:short)
+        %td.name= link_to task.name, customer_task_path(task.customer,task)
+        %td= task.completed_at.to_s(:short)
+        %td= task.total
+        %td= button_to 'Uncomplete', uncomplete_customer_task_path(@customer, task), :method => :get
+    %tr.separator
+      %td
+      %td
+      %td
+      %td
+      %td
+

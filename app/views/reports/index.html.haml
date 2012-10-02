@@ -1,5 +1,4 @@
--#form_tag '/reports' do
--form_tag customer_reports_path(@customer) do
+=form_tag customer_reports_path(@customer) do
   =select_date Date.today, :prefix => :start_date
   %br
   =select_date Date.today, :prefix => :end_date

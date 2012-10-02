@@ -31,7 +31,7 @@
         -print_running_task_time(task)
         %td= start_link(task)
         %td= stop_link(task)
-        %td= link_to 'sub_tasks', customer_task_sub_times_path(task.customer, task)
+        %td= link_to 'sub_tasks', customer_task_sub_times_path(task.customer, task), :remote => true, :rel => 'facebox'
         %td= button_to 'Complete!', complete_customer_task_path(@customer, task), :method => :get
         %td= button_to 'delete!', customer_task_path(@customer, task), :method => :delete
 

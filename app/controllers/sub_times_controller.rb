@@ -7,8 +7,9 @@ class SubTimesController < ApplicationController
     @sub_times = @task.sub_times
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @sub_times }
+      #format.html # index.html.erb
+      #format.xml  { render :xml => @sub_times }
+      format.js { render :layout => false }
     end
   end
 

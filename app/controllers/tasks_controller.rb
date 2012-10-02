@@ -8,7 +8,7 @@ class TasksController < ApplicationController
     @new_task = @customer.tasks.build
     @tasks = @customer.tasks(:order => "created_at").where(:completed => false)
     @completed_tasks = @customer.tasks(:order => "created_at").
-      where(:completed => true)
+      where(:completed => true).group_by(&:completed_at)
 
     respond_to do |format|
       format.html # index.html.erb
