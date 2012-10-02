@@ -1,0 +1,25 @@
+%div{:id => "subtask_link"}
+  %h1
+    Listing sub_times
+
+  %table
+    %tr
+      %th 
+        Start
+      %th
+        End
+      %th
+        Total (hrs)
+      %th
+        Task
+      %th
+
+    -@sub_times.each do |sub_time|
+      %tr
+        %td= best_in_place sub_time, :start, :path => customer_task_sub_time_path(@customer, @task, sub_time)
+        %td= best_in_place sub_time, :end, :path => customer_task_sub_time_path(@customer, @task, sub_time)
+        %td= sub_time.total
+        %td= sub_time.task.name
+        %td= link_to 'edit', edit_customer_task_sub_time_path(@customer, sub_time.task, sub_time)
+
+  =link_to "Tasks", customer_tasks_path(@customer)
