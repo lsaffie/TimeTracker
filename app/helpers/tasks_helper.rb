@@ -91,4 +91,12 @@ module TasksHelper
     end
   end
 
+  def display_end_and_total_time(subtime)
+    unless subtime.end.nil?
+      haml_tag :td, subtime.end.to_s(:short)
+      haml_tag :td, ((subtime.end-subtime.start)/60).ceil
+    end
+
+  end
+
 end

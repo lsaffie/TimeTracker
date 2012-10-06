@@ -83,3 +83,8 @@ table {
 
 .right-aligned {
   text-align: right; }
+
+.subtimes {
+  border: none;
+  font: 11px Helvetica;
+  color: gray; }

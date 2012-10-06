@@ -16,15 +16,22 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-        $('#sub_time_start').datetimepicker({
-           timeFormat: "h:m",
-           ampm: true
-        });
+  $('#sub_time_start').datetimepicker({
+    timeFormat: "h:m",
+    ampm: true
+  });
 });
 
 $(document).ready(function($) {
-    $('a[rel*=facebox]').facebox({
-      loadingImage: '/assets/loading.gif',
-      closeImage  : '/assets/closelabel.png'
-    });
+  $('a[rel*=facebox]').facebox({
+    loadingImage: '/assets/loading.gif',
+    closeImage  : '/assets/closelabel.png'
+  });
+});
+
+$(document).ready(function($) {
+  jQuery('.accordion').click(function($) {
+    jQuery(this).next().toggle('slow');
+    return false;
+  }).next().hide();
 });

@@ -24,8 +24,7 @@
         %tr
           %td.name= subtime.task.name
           %td= subtime.start.to_s(:short)
-          %td= subtime.end.to_s(:short)
-          %td= ((subtime.end-subtime.start)/60).ceil
+          -display_end_and_total_time(subtime)
       %tr{:class => 'gray'}
         %td
           %b
