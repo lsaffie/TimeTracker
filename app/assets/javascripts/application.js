@@ -30,7 +30,7 @@ $(document).ready(function($) {
 });
 
 $(document).ready(function($) {
-  jQuery('.accordion').click(function($) {
+  jQuery('.accordion .header').click(function($) {
     jQuery(this).next().toggle('slow');
     return false;
   }).next().hide();
