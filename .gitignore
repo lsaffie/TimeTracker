@@ -4,3 +4,4 @@ log/*.log
 tmp/
 .swp
 /nbproject/private/
+public/assets/manifest.yml
