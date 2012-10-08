@@ -45,5 +45,7 @@ module TimeTracker
     # or load models when precompiling your assets.
     config.assets.enabled = true
     config.assets.version = '1.0'
+
+    config.assets.precompile += %w( *.js *.css )
   end
 end
