@@ -35,10 +35,8 @@ gem 'best_in_place'
 # and rake tasks are available in development mode:
 gem "googlecharts", :require => "gchart"
 group :development, :test do
-#   gem 'webrat'
-  gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'factory_girl'
   gem 'rspec-rails'
+  gem 'debugger'
   gem 'railroad'
 end
 

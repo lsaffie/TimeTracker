@@ -13,6 +13,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @tasks }
+      format.json { render :json => @tasks }
     end
   end
 
@@ -66,8 +67,8 @@ class TasksController < ApplicationController
           @sub_time.save!
           @task.sub_times << @sub_time
         end
-
         format.html { redirect_to(customer_tasks_path(@task.customer), :notice => 'Task was successfully created.') }
+        format.json { redirect_to(customer_tasks_path(@task.customer), :notice => 'Task was successfully created.') }
         format.xml  { render :xml => @task, :status => :created, :location => @task }
       else
         format.html { render :action => "new" }

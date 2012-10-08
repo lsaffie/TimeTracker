@@ -10,6 +10,7 @@ class SubTimesController < ApplicationController
       format.html # index.html.erb
       format.xml  { render :xml => @sub_times }
       format.js { render :layout => false }
+      format.json { render :json => @sub_times }
     end
   end
 
