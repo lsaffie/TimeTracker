@@ -40,6 +40,8 @@ group :development, :test do
   gem 'railroad'
 end
 
+gem 'therubyracer-heroku'
+
 
 # Needed for the new asset pipeline
 group :assets do
