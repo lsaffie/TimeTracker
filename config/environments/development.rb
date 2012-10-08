@@ -15,6 +15,8 @@ TimeTracker::Application.configure do
 
   config.assets.compile = true
 
+  config.serve_static_assets = true
+
   # Expands the lines which load the assets
   config.assets.debug = true
 

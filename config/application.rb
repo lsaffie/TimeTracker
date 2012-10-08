@@ -43,7 +43,6 @@ module TimeTracker
     # Devise config
     # forcing your application to not access the DB
     # or load models when precompiling your assets.
-    config.assets.initialize_on_precompile = false
     config.assets.enabled = true
     config.assets.version = '1.0'
   end
