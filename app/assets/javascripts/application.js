@@ -35,3 +35,9 @@ $(document).ready(function($) {
     return false;
   }).next().hide();
 });
+
+$(document).ready(function($) {
+  jQuery("#toggle").click(function($) {
+    jQuery('.subtimes').toggle();
+  });
+});
