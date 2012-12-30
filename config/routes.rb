@@ -8,6 +8,8 @@ TimeTracker::Application.routes.draw do
   resources :customers do
     resources :reports
     resources :tasks do 
+      get 'start', :on => :member
+      get 'stop', :on => :member
       get 'complete', :on => :member
       get 'uncomplete', :on => :member
       get 'multiple_edit', :on => :collection

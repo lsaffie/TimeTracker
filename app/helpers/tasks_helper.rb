@@ -7,13 +7,7 @@ module TasksHelper
   end
 
   def get_class(task)
-    return "disabled" if task.invoiced
-
-    unless task.sub_times.empty?
-      if task.sub_times.last.end.nil?
-        return "running"
-      end
-    end
+    task.end_at.nil? ? "running" : "disabled"
   end
 
   def print_invoiced_row(task)
@@ -24,32 +18,15 @@ module TasksHelper
   end
 
   def start_link(task)
-    if task.sub_times.empty?
-      eval = true
-    elsif !task.sub_times.last.nil?
-      eval = task.sub_times.last.start.nil? || !task.sub_times.last.end.nil?
-    else
-      eval = false
-    end
-    link_to_if eval, 'start', new_customer_task_sub_time_path(task.customer, task)
+    link_to "start", start_customer_task_path(task.customer, task)
   end
 
   def stop_link(task)
-    if !task.sub_times.last.nil?
-      eval = task.sub_times.last.end.nil?
-      link_to_if eval, 'stop', stop_customer_task_sub_time_path(task.customer, task, task.sub_times.last)
-    end
+    link_to "stop", stop_customer_task_path(task.customer, task)
   end
 
   def print_running_task_time(task)
-    current = ''
-    if !task.sub_times.last.nil?
-      subtime = task.sub_times.last
-      if subtime.end.nil?
-        current = (Time.now - subtime.start) / 60
-      end
-    end
-
+    current = (Time.now - task.start_at) /60
     haml_tag(:td, current.to_i)
   end
 
@@ -67,17 +44,15 @@ module TasksHelper
     @previous_time = subtime.start
   end
 
-  def total(subtimes)
-    total = 0
-    subtimes.each {|s| total += s.to_hrs}
-    haml_concat(total)
+  def total(tasks)
+    tasks.sum(&:total_to_hrs)
   end
 
-  def get_grand_total(subtimes)
+  def get_grand_total(grouped_tasks)
     grand = 0
-    subtimes.each do |start, subs|
-      subs.each do |sub|
-        grand += sub.to_hrs
+    grouped_tasks.each do |created_at, tasks|
+      tasks.each do |task|
+        grand += (task.end_at - task.start_at)/60 unless task.end_at.nil?
       end
     end
     haml_concat(grand)

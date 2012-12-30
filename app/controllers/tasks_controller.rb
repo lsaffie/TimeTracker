@@ -59,14 +59,14 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        if !start.nil?
-          @task.save
-          SubTime.end_all
-          @sub_time = SubTime.new
-          @sub_time.start = Time.now
-          @sub_time.save!
-          @task.sub_times << @sub_time
-        end
+        #if !start.nil?
+        #  @task.save
+        #  SubTime.end_all
+        #  @sub_time = SubTime.new
+        #  @sub_time.start = Time.now
+        #  @sub_time.save!
+        #  @task.sub_times << @sub_time
+        #end
         format.html { redirect_to(customer_tasks_path(@task.customer), :notice => 'Task was successfully created.') }
         format.json { redirect_to(customer_tasks_path(@task.customer), :notice => 'Task was successfully created.') }
         format.xml  { render :xml => @task, :status => :created, :location => @task }
@@ -137,36 +137,35 @@ class TasksController < ApplicationController
     end
   end
 
-  def summary
-    @customer = Customer.find(params[:customer_id])
-    subtimes= []
-    @customer.tasks.each do |t|
-      get_subtimes(t).each do |tt|
-        subtimes << tt
-      end
-    end
-    @grouped_subtimes = subtimes.group_by(&:group_by_criteria)
+  #  @customer = Customer.find(params[:customer_id])
+  #  subtimes= []
+  #  @customer.tasks.each do |t|
+  #    get_subtimes(t).each do |tt|
+  #      subtimes << tt
+  #    end
+  #  end
+  #  @grouped_subtimes = subtimes.group_by(&:group_by_criteria)
 
-    respond_to do |format|
-      format.html
-      format.csv do
-        csv_string = CSV.generate do |csv|
-          cols = ["Name", "Start", "End", "Total(min)"]
-          csv << cols
+  #  respond_to do |format|
+  #    format.html
+  #    format.csv do
+  #      csv_string = CSV.generate do |csv|
+  #        cols = ["Name", "Start", "End", "Total(min)"]
+  #        csv << cols
 
-          @grouped_subtimes.each do |start, subtimes|
-            subtimes.each do |subtime|
-              csv << [subtime.task.name, subtime.start.to_s(:short), subtime.end.to_s(:short), ((subtime.end-subtime.start)/60).ceil]
-            end
-          end
-        end
-        send_data csv_string, :type => 'text/plain',
-          :filename => 'TimeTracker.csv',
-          :disposition => 'attachment'
-      end
-    end
+  #        @grouped_subtimes.each do |start, subtimes|
+  #          subtimes.each do |subtime|
+  #            csv << [subtime.task.name, subtime.start.to_s(:short), subtime.end.to_s(:short), ((subtime.end-subtime.start)/60).ceil]
+  #          end
+  #        end
+  #      end
+  #      send_data csv_string, :type => 'text/plain',
+  #        :filename => 'TimeTracker.csv',
+  #        :disposition => 'attachment'
+  #    end
+  #  end
 
-  end
+  #end
 
   def complete_all
     @customer = Customer.find(params[:customer_id])
@@ -175,14 +174,34 @@ class TasksController < ApplicationController
     redirect_to customer_tasks_path(@customer)
   end
 
-  private
-  def get_subtimes(task)
-    if params["start"] && params[:end]
-      start_date=Report.get_date(params["start"])
-      end_date=Report.get_date(params["end"])
-      return task.sub_times.find(:all, :conditions => ['DATE(start) >= ? and DATE(start) <= ?',start_date, end_date])
-    else
-      return task.sub_times
-    end
+  def stop
+    customer = Customer.find(params[:customer_id])
+    task = Task.find params[:id]
+    task.update_attributes!(:end_at => Time.now, :total => task.get_total)
+    redirect_to customer_tasks_path(customer)
   end
+
+  def start
+    customer = Customer.find(params[:customer_id])
+    task = Task.find params[:id]
+    task.update_attributes!(:end_at => Time.now)
+    redirect_to customer_tasks_path(customer)
+  end
+
+  def summary
+    @customer = Customer.find(params[:customer_id])
+    tasks = @customer.tasks
+    @grouped_tasks = tasks.group_by(&:group_by_criteria)
+  end
+
+  #private
+  #def get_subtimes(task)
+  #  if params["start"] && params[:end]
+  #    start_date=Report.get_date(params["start"])
+  #    end_date=Report.get_date(params["end"])
+  #    return task.sub_times.find(:all, :conditions => ['DATE(start) >= ? and DATE(start) <= ?',start_date, end_date])
+  #  else
+  #    return task.sub_times
+  #  end
+  #end
 end

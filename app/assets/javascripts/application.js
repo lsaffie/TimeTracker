@@ -41,3 +41,7 @@ $(document).ready(function($) {
     jQuery('.subtimes').toggle();
   });
 });
+
+$(document).ready(function() {
+  jQuery('.subtimes').toggle();
+});

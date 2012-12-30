@@ -16,31 +16,36 @@
 
 class Task < ActiveRecord::Base
   belongs_to :customer
-  has_many :sub_times, :order => "start"
   validates :name,
             :presence => true
 
   after_initialize :init
+  before_save :before_saved
 
-  def init
-    self.completed = false
+  def get_total
+    ((Time.now - self.start_at)/60).ceil
   end
 
-  def set_total
-    total = 0
-    self.sub_times.each {|sb| total += sb.to_mins}
-    self.total = total
-    self.save!
+  def total_to_hrs
+    (total/3600).round(2)
   end
 
   def self.total_time
-    total=0
-    self.all.each do |t|
-      t.sub_times.each do |st|
-        total += st.to_hrs
-      end
-    end
-    total.to_s
+    self.all.sum(&:total_to_hrs)
+  end
+
+  def group_by_criteria
+    start_at.to_date.to_s(:db)
+  end
+
+  private
+
+  def before_saved
+    self.start_at = Time.now
+  end
+
+  def init
+    self.completed = false
   end
 
 end
