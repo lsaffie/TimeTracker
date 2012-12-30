@@ -19,15 +19,16 @@ class Task < ActiveRecord::Base
   validates :name,
             :presence => true
 
+  has_many :sub_times
+
   after_initialize :init
-  before_save :before_saved
 
   def get_total
     ((Time.now - self.start_at)/60).ceil
   end
 
   def total_to_hrs
-    (total/3600).round(2)
+    (total.to_f/60)
   end
 
   def self.total_time
@@ -40,12 +41,9 @@ class Task < ActiveRecord::Base
 
   private
 
-  def before_saved
-    self.start_at = Time.now
-  end
-
   def init
-    self.completed = false
+    #self.completed = false
+    #self.start_at = Time.now
   end
 
 end

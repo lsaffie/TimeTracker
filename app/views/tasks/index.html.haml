@@ -31,29 +31,17 @@
 
   %tbody
     -@tasks.each do |task|
-      %tr.accordion{:class => "#{get_class(task)}"}
+      %tr{:class => "#{get_class(task)}"}
         %td= task.created_at.to_s(:short)
         %td.name= link_to task.name, customer_task_path(task.customer,task)
-        %td= task.start_at.to_s(:short)
-        %td= task.end_at
+        %td= best_in_place task, :start_at, :path => customer_task_path(task.customer, task)
+        %td= best_in_place task, :end_at, :path => customer_task_path(task.customer, task)
         -print_running_task_time(task)
         %td= task.total
         %td= start_link(task)
         %td= stop_link(task)
-        -#%td= link_to 'sub_tasks', customer_task_sub_times_path(task.customer, task)
         %td= button_to 'Complete!', complete_customer_task_path(@customer, task), :method => :get
         %td= button_to 'delete!', customer_task_path(@customer, task), :method => :delete
-      -#-task.sub_times.each do |sub_time|
-      -#  %tr.subtimes
-      -#    %td
-      -#      %td= best_in_place sub_time, :start, :path => customer_task_sub_time_path(@customer, task, sub_time)
-      -#      %td= best_in_place sub_time, :end, :path => customer_task_sub_time_path(@customer, task, sub_time)
-      -#      %td= sub_time.total
-      -#      %td
-      -#      %td
-      -#      %td
-      -#      %td
-      -#      %td
               
   Current Time:
   %b

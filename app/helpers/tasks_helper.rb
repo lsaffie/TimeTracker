@@ -45,7 +45,7 @@ module TasksHelper
   end
 
   def total(tasks)
-    tasks.sum(&:total_to_hrs)
+    tasks.sum(&:total_to_hrs).round(2)
   end
 
   def get_grand_total(grouped_tasks)

@@ -183,7 +183,7 @@ class TasksController < ApplicationController
   def start
     customer = Customer.find(params[:customer_id])
     task = Task.find params[:id]
-    task.update_attributes!(:end_at => Time.now)
+    task.update_attributes!(:end_at => nil)
     redirect_to customer_tasks_path(customer)
   end
 
