@@ -21,7 +21,7 @@ class Task < ActiveRecord::Base
 
   has_many :sub_times
 
-  after_initialize :init
+  after_create :init
 
   def get_total
     ((Time.now - self.start_at)/60).ceil
@@ -39,11 +39,17 @@ class Task < ActiveRecord::Base
     start_at.to_date.to_s(:db)
   end
 
+  def self.end_all
+    tasks = Task.where(:end_at => nil)
+    tasks.each {|t| t.update_attributes!(:end_at => Time.now)}
+  end
+
   private
 
   def init
-    #self.completed = false
-    #self.start_at = Time.now
+    self.completed = false
+    self.start_at = Time.now
+    self.save!
   end
 
 end

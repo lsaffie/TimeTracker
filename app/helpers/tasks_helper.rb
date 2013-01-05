@@ -7,7 +7,7 @@ module TasksHelper
   end
 
   def get_class(task)
-    task.end_at.nil? ? "running" : "disabled"
+    task.end_at.nil? ? "running" : ""
   end
 
   def print_invoiced_row(task)

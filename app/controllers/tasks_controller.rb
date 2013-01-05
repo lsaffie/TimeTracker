@@ -57,15 +57,8 @@ class TasksController < ApplicationController
     end
 
     respond_to do |format|
+      Task.end_all
       if @task.save
-        #if !start.nil?
-        #  @task.save
-        #  SubTime.end_all
-        #  @sub_time = SubTime.new
-        #  @sub_time.start = Time.now
-        #  @sub_time.save!
-        #  @task.sub_times << @sub_time
-        #end
         format.html { redirect_to(customer_tasks_path(@task.customer), :notice => 'Task was successfully created.') }
         format.json { redirect_to(customer_tasks_path(@task.customer), :notice => 'Task was successfully created.') }
         format.xml  { render :xml => @task, :status => :created, :location => @task }
@@ -136,36 +129,6 @@ class TasksController < ApplicationController
     end
   end
 
-  #  @customer = Customer.find(params[:customer_id])
-  #  subtimes= []
-  #  @customer.tasks.each do |t|
-  #    get_subtimes(t).each do |tt|
-  #      subtimes << tt
-  #    end
-  #  end
-  #  @grouped_subtimes = subtimes.group_by(&:group_by_criteria)
-
-  #  respond_to do |format|
-  #    format.html
-  #    format.csv do
-  #      csv_string = CSV.generate do |csv|
-  #        cols = ["Name", "Start", "End", "Total(min)"]
-  #        csv << cols
-
-  #        @grouped_subtimes.each do |start, subtimes|
-  #          subtimes.each do |subtime|
-  #            csv << [subtime.task.name, subtime.start.to_s(:short), subtime.end.to_s(:short), ((subtime.end-subtime.start)/60).ceil]
-  #          end
-  #        end
-  #      end
-  #      send_data csv_string, :type => 'text/plain',
-  #        :filename => 'TimeTracker.csv',
-  #        :disposition => 'attachment'
-  #    end
-  #  end
-
-  #end
-
   def complete_all
     @customer = Customer.find(params[:customer_id])
     @tasks = @customer.tasks.where(:completed => false)
@@ -189,18 +152,41 @@ class TasksController < ApplicationController
 
   def summary
     @customer = Customer.find(params[:customer_id])
-    tasks = @customer.tasks
+    tasks = get_tasks_by_date(@customer)
     @grouped_tasks = tasks.group_by(&:group_by_criteria)
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        csv_string = CSV.generate do |csv|
+          cols = ["Name", "Start", "End", "Total(min)"]
+          csv << cols
+
+          @grouped_tasks.each do |start, tasks|
+            tasks.each do |task|
+              csv << [task.name, task.start_at.to_s(:short), task.end_at.to_s(:short), ((task.end_at-task.start_at)/60).ceil]
+            end
+          end
+        end
+
+        send_data csv_string, :type => 'text/plain',
+          :filename => 'TimeTracker.csv',
+          :filename => 'TimeTracker.csv',
+          :disposition => 'attachment'
+      end
+    end
   end
 
-  #private
-  #def get_subtimes(task)
-  #  if params["start"] && params[:end]
-  #    start_date=Report.get_date(params["start"])
-  #    end_date=Report.get_date(params["end"])
-  #    return task.sub_times.find(:all, :conditions => ['DATE(start) >= ? and DATE(start) <= ?',start_date, end_date])
-  #  else
-  #    return task.sub_times
-  #  end
-  #end
+private
+  def get_tasks_by_date(customer)
+    if params["start"] && params[:end]
+      start_date=Report.get_date(params["start"])
+      end_date=Report.get_date(params["end"])
+      return customer.tasks.find(:all, :conditions => ['DATE(start_at) >= ? and DATE(start_at) <= ?',start_date, end_date])
+    else
+      return customer.tasks
+    end
+  end
+
+
 end
