@@ -19,23 +19,17 @@
 
   %tbody
     -total_array =[]
-    -@grouped_subtimes.each do |start,subs|
-      -subs.each do |subtime|
+    - @grouped_tasks.each do |created_at, tasks|
+      -tasks.each do |task|
         %tr
-          %td.name= subtime.task.name
-          %td= subtime.start.to_s(:short)
-          -display_end_and_total_time(subtime)
-      %tr{:class => 'gray'}
-        %td
-          %b
-            Total
-        %td{:colspan => "2"}
-          %b
-            =start.to_date
-        %td{:colspan => "2"}
-          %b
-            -total(subs) 
-            hrs
+          %td= task.name
+          %td= task.start_at
+          %td= task.end_at
+          %td= task.total
+      %tr.gray
+        %td Total
+        %td{:colspan => "2"}=created_at
+        %td= total(tasks)
 %h2
   Total Hours:
-  -get_grand_total(@grouped_subtimes)
+  -get_grand_total(@grouped_tasks)

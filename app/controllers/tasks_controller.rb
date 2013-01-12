@@ -7,8 +7,7 @@ class TasksController < ApplicationController
     @customer = Customer.find(params[:customer_id])
     @new_task = @customer.tasks.build
     @tasks = @customer.tasks(:order => "created_at").where(:completed => false)
-    @completed_tasks = @customer.tasks(:order => "created_at").
-      where(:completed => true).group_by(&:completed_at)
+    @completed_tasks = Rails.cache.fetch("completed_tasks", :expires_in => 24.hours) {@customer.tasks(:order => "created_at").where(:completed => true).group_by(&:completed_at)}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -58,15 +57,8 @@ class TasksController < ApplicationController
     end
 
     respond_to do |format|
+      Task.end_all
       if @task.save
-        if !start.nil?
-          @task.save
-          SubTime.end_all
-          @sub_time = SubTime.new
-          @sub_time.start = Time.now
-          @sub_time.save!
-          @task.sub_times << @sub_time
-        end
         format.html { redirect_to(customer_tasks_path(@task.customer), :notice => 'Task was successfully created.') }
         format.json { redirect_to(customer_tasks_path(@task.customer), :notice => 'Task was successfully created.') }
         format.xml  { render :xml => @task, :status => :created, :location => @task }
@@ -137,15 +129,31 @@ class TasksController < ApplicationController
     end
   end
 
+  def complete_all
+    @customer = Customer.find(params[:customer_id])
+    @tasks = @customer.tasks.where(:completed => false)
+    @tasks.each {|t| t.update_attributes!(:completed => true, :completed_at => Time.now)}
+    redirect_to customer_tasks_path(@customer)
+  end
+
+  def stop
+    customer = Customer.find(params[:customer_id])
+    task = Task.find params[:id]
+    task.update_attributes!(:end_at => Time.now, :total => task.get_total)
+    redirect_to customer_tasks_path(customer)
+  end
+
+  def start
+    customer = Customer.find(params[:customer_id])
+    task = Task.find params[:id]
+    task.update_attributes!(:end_at => nil)
+    redirect_to customer_tasks_path(customer)
+  end
+
   def summary
     @customer = Customer.find(params[:customer_id])
-    subtimes= []
-    @customer.tasks.each do |t|
-      get_subtimes(t).each do |tt|
-        subtimes << tt
-      end
-    end
-    @grouped_subtimes = subtimes.group_by(&:group_by_criteria)
+    tasks = get_tasks_by_date(@customer)
+    @grouped_tasks = tasks.group_by(&:group_by_criteria)
 
     respond_to do |format|
       format.html
@@ -154,35 +162,31 @@ class TasksController < ApplicationController
           cols = ["Name", "Start", "End", "Total(min)"]
           csv << cols
 
-          @grouped_subtimes.each do |start, subtimes|
-            subtimes.each do |subtime|
-              csv << [subtime.task.name, subtime.start.to_s(:short), subtime.end.to_s(:short), ((subtime.end-subtime.start)/60).ceil]
+          @grouped_tasks.each do |start, tasks|
+            tasks.each do |task|
+              csv << [task.name, task.start_at.to_s(:short), task.end_at.to_s(:short), ((task.end_at-task.start_at)/60).ceil]
             end
           end
         end
+
         send_data csv_string, :type => 'text/plain',
+          :filename => 'TimeTracker.csv',
           :filename => 'TimeTracker.csv',
           :disposition => 'attachment'
       end
     end
-
   end
 
-  def complete_all
-    @customer = Customer.find(params[:customer_id])
-    @tasks = @customer.tasks.where(:completed => false)
-    @tasks.each {|t| t.update_attributes!(:completed => true, :completed_at => Time.now)}
-    redirect_to customer_tasks_path(@customer)
-  end
-
-  private
-  def get_subtimes(task)
+private
+  def get_tasks_by_date(customer)
     if params["start"] && params[:end]
       start_date=Report.get_date(params["start"])
       end_date=Report.get_date(params["end"])
-      return task.sub_times.find(:all, :conditions => ['DATE(start) >= ? and DATE(start) <= ?',start_date, end_date])
+      return customer.tasks.find(:all, :conditions => ['DATE(start_at) >= ? and DATE(start_at) <= ?',start_date, end_date])
     else
-      return task.sub_times
+      return customer.tasks
     end
   end
+
+
 end

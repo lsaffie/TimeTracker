@@ -40,6 +40,7 @@ group :development, :test do
 end
 
 gem 'therubyracer-heroku'
+gem 'taps'
 
 
 # Needed for the new asset pipeline
