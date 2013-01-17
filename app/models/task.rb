@@ -27,6 +27,10 @@ class Task < ActiveRecord::Base
     ((Time.now - self.start_at)/60).ceil
   end
 
+  def set_total_time
+    self.update_attributes!(:total => (self.end_at-self.start_at)/60)
+  end
+
   def active?
     self.end_at.nil? ? true : false
   end

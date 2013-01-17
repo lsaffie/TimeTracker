@@ -81,6 +81,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.update_attributes(params[:task])
+        @task.set_total_time
         format.html { redirect_to(customer_task_path(@customer, @task), :notice => 'Task was successfully updated.') }
         format.xml  { head :ok }
         format.json  { head :ok } # used by best in place
