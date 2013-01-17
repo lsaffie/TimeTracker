@@ -27,6 +27,10 @@ class Task < ActiveRecord::Base
     ((Time.now - self.start_at)/60).ceil
   end
 
+  def active?
+    self.end_at.nil? ? true : false
+  end
+
   def total_to_hrs
     (total.to_f/60)
   end

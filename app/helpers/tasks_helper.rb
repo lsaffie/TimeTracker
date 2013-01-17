@@ -26,8 +26,12 @@ module TasksHelper
   end
 
   def print_running_task_time(task)
-    current = (Time.now - task.start_at) /60
-    haml_tag(:td, current.to_i)
+    if task.active?
+      current = (Time.now - task.start_at) /60
+      haml_tag(:td, current.to_i)
+    else
+      haml_tag(:td, "")
+    end
   end
 
 
