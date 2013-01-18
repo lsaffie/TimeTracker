@@ -49,7 +49,7 @@ class Task < ActiveRecord::Base
 
   def self.end_all
     tasks = Task.where(:end_at => nil)
-    tasks.each {|t| t.update_attributes!(:end_at => Time.now)}
+    tasks.each {|t| t.update_attributes!(:end_at => Time.now, :total => t.get_total)}
   end
 
   private
