@@ -66,6 +66,7 @@ module TasksHelper
     if @customer && @customer.id
       haml_tag(:a, '| tasks', :href => customer_tasks_path(@customer))
       haml_tag(:a, '| summary', :href => summary_customer_tasks_path(@customer))
+      haml_tag(:a, '| chart', :href => chart_customer_tasks_path(@customer))
       haml_tag(:a, '| reports', :href => customer_reports_path(@customer))
     end
   end
