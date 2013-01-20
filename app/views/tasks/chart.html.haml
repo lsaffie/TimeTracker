@@ -1,0 +1,7 @@
+%h1 Two-week Trend
+%img{:src => Gchart.line(:theme => :keynote, 
+      :title => 'Hours Worked',
+      :axis_with_labels => 'x,y',
+      :axis_labels => [@days.reverse, @hours.sort],
+      :size => '700x400',
+      :data => [@hours])}
