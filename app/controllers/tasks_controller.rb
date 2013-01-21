@@ -154,10 +154,11 @@ class TasksController < ApplicationController
   def chart
     @customer = Customer.find(params[:customer_id])
     tasks = get_tasks_by_date(@customer)
-    grouped_tasks = tasks.group_by(&:group_by_criteria)
-    @days = grouped_tasks.collect {|gt| gt.first}.take(14)
-    @days.collect! {|d| Date.parse(d).strftime("%a %d")}
-    @hours = grouped_tasks.collect {|gt| gt.last.sum(&:total_to_hrs).round(2)}.take(14).reverse
+    grouped_tasks = tasks.sort_by(&:start_at).group_by(&:group_by_criteria).collect {|e| [e.first, e.last.sum(&:total_to_hrs)]}
+
+    hours_days_array = grouped_tasks.reverse.take(14)
+    @days = hours_days_array.collect {|d| Date.parse(d.first).strftime("%a %d")}
+    @hours = hours_days_array.collect {|d| d.last.round(2)}
   end
 
   def summary
