@@ -1,7 +1,17 @@
-%h1 Two-week Trend
-%img{:src => Gchart.line(:theme => :keynote, 
-      :title => 'Hours Worked',
-      :axis_with_labels => 'x,y',
-      :axis_labels => [@days.reverse, @hours.sort],
-      :size => '700x400',
-      :data => [@hours.reverse])}
+%div#chart
+
+:javascript
+  google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable(
+            #{@data_array}
+          );
+
+          var options = {
+            title: '14-day trend'
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('chart'));
+          chart.draw(data, options);
+        }

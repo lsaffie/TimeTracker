@@ -157,8 +157,8 @@ class TasksController < ApplicationController
     grouped_tasks = tasks.sort_by(&:start_at).group_by(&:group_by_criteria).collect {|e| [e.first, e.last.sum(&:total_to_hrs)]}
 
     hours_days_array = grouped_tasks.reverse.take(14)
-    @days = hours_days_array.collect {|d| Date.parse(d.first).strftime("%a %d")}
-    @hours = hours_days_array.collect {|d| d.last.round(2)}
+    hours_days_array.collect! {|e| e+[7.5]}
+    @data_array = [["Day", "hour", "trend"]] + hours_days_array.reverse
   end
 
   def summary
