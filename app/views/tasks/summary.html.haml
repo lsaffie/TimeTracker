@@ -5,7 +5,7 @@
 %p
   =link_to "Export csv", summary_customer_tasks_path(@customer, :csv, {:start => params[:start], :end => params[:end]})
 
-%table
+%table.data_table
   %thead
     %tr
       %th
@@ -28,8 +28,11 @@
           %td= task.total
       %tr.gray
         %td Total
-        %td{:colspan => "2"}=created_at
+        %td{:colspan => "2"}=link_to(created_at, date_summary_customer_tasks_path(@customer, :created_at => created_at))
         %td= total(tasks)
 %h2
   Total Hours:
   -get_grand_total(@grouped_tasks)
+
+
+%div#chart

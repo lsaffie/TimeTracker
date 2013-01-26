@@ -188,6 +188,18 @@ class TasksController < ApplicationController
     end
   end
 
+  def date_summary
+    @customer = Customer.find(params[:customer_id])
+    tasks = get_tasks_by_date(@customer)
+    grouped_tasks = tasks.group_by(&:group_by_criteria)
+
+    @date = params[:created_at]
+
+    data = grouped_tasks[@date]
+    data.collect! {|e| [e.name, e.total]}
+    @data_array = [["Task", "Duration"]] + data
+  end
+
 private
   def get_tasks_by_date(customer)
     if params["start"] && params[:end]
