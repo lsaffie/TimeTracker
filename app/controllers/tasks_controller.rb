@@ -190,7 +190,7 @@ class TasksController < ApplicationController
 
   def date_summary
     @customer = Customer.find(params[:customer_id])
-    tasks = get_tasks_by_date(@customer)
+    tasks = get_tasks_by_date(@customer).sort_by(&:created_at)
     grouped_tasks = tasks.group_by(&:group_by_criteria)
 
     @date = params[:created_at]
