@@ -55,7 +55,7 @@ module TasksHelper
   def get_grand_total(grouped_tasks)
     grand = 0
     grouped_tasks.each do |created_at, tasks|
-      grand = tasks.sum(&:total)
+      grand += tasks.sum(&:total)
     end
     haml_concat(grand.to_f/60)
   end
