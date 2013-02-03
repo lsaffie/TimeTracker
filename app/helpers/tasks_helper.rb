@@ -55,11 +55,9 @@ module TasksHelper
   def get_grand_total(grouped_tasks)
     grand = 0
     grouped_tasks.each do |created_at, tasks|
-      tasks.each do |task|
-        grand += (task.end_at - task.start_at)/60 unless task.end_at.nil?
-      end
+      grand = tasks.sum(&:total)
     end
-    haml_concat(grand)
+    haml_concat(grand.to_f/60)
   end
 
   def tasks_link
