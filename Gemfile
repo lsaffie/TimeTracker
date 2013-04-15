@@ -16,6 +16,7 @@ gem 'best_in_place'
 
 gem 'googlecharts'
 
+gem 'acts-as-taggable-on', '~> 2.3.1'
 # Use unicorn as the web server
 # gem 'unicorn'
 

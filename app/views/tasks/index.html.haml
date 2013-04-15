@@ -22,6 +22,8 @@
       %th
         Current
       %th
+        Tag
+      %th
         Total
       %th
       %th
@@ -37,6 +39,7 @@
         %td= best_in_place task, :start_at, :path => customer_task_path(task.customer, task)
         %td= best_in_place task, :end_at, :path => customer_task_path(task.customer, task)
         -print_running_task_time(task)
+        %td= best_in_place task, :tag_list, :path => customer_task_path(task.customer, task)
         %td= task.total
         %td= start_link(task)
         %td= stop_link(task)

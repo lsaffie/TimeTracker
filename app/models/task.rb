@@ -23,6 +23,8 @@ class Task < ActiveRecord::Base
 
   after_create :init
 
+  acts_as_taggable
+
   def get_total
     ((Time.now - self.start_at)/60).ceil
   end
