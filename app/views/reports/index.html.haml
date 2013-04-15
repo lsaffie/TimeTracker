@@ -3,4 +3,7 @@
   %br
   =select_date Date.today, :prefix => :end_date
   %br
+  Tag:
+  =select_tag('tag', options_from_collection_for_select(Task.tag_counts, "name", "name"), :include_blank => true)
+  %br
   =submit_tag "Go Get'em!"

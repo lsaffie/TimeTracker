@@ -15,6 +15,8 @@
       %th
         Ended at
       %th
+        Tag
+      %th
         Total(min)
 
   %tbody
@@ -25,10 +27,11 @@
           %td= task.name
           %td= task.start_at
           %td= task.end_at
+          %td= task.tag_list
           %td= task.total
       %tr.gray
         %td Total
-        %td{:colspan => "2"}=link_to(created_at, date_summary_customer_tasks_path(@customer, :created_at => created_at))
+        %td{:colspan => "3"}=link_to(created_at, date_summary_customer_tasks_path(@customer, :created_at => created_at))
         %td= total(tasks)
 %h2
   Total Hours:

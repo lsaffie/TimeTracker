@@ -205,7 +205,11 @@ private
     if params["start"] && params[:end]
       start_date=Report.get_date(params["start"])
       end_date=Report.get_date(params["end"])
-      return customer.tasks.find(:all, :conditions => ['DATE(start_at) >= ? and DATE(start_at) <= ?',start_date, end_date])
+      if params[:tag]
+        return customer.tasks.tagged_with(params[:tag]).find(:all, :conditions => ['DATE(start_at) >= ? and DATE(start_at) <= ?',start_date, end_date])
+      else
+        return customer.tasks.find(:all, :conditions => ['DATE(start_at) >= ? and DATE(start_at) <= ?',start_date, end_date])
+      end
     else
       return customer.tasks
     end
