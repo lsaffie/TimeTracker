@@ -10,6 +10,8 @@
     %th
       Completed at
     %th
+      Tag
+    %th
       Total(min)
     %th
 
@@ -19,5 +21,6 @@
         %td= task.created_at.to_s(:short)
         %td.name= link_to task.name, customer_task_path(task.customer,task)
         %td= task.completed_at.to_s(:short)
+        %td= best_in_place task, :tag_list, :path => customer_task_path(task.customer, task)
         %td= task.total
         %td= button_to 'Uncomplete', uncomplete_customer_task_path(@customer, task), :method => :get

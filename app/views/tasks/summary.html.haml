@@ -27,7 +27,7 @@
           %td= task.name
           %td= task.start_at
           %td= task.end_at
-          %td= task.tag_list
+          %td= best_in_place task, :tag_list, :path => customer_task_path(task.customer, task)
           %td= task.total
       %tr.gray
         %td Total

@@ -39,3 +39,6 @@ set :branch, current_git_branch
 #   end
 # end
 
+
+        require './config/boot'
+        require 'airbrake/capistrano'

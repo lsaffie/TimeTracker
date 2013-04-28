@@ -15,6 +15,7 @@ gem 'jquery-rails'
 gem 'best_in_place'
 
 gem 'googlecharts'
+gem 'airbrake'
 
 gem 'acts-as-taggable-on', '~> 2.3.1'
 # Use unicorn as the web server
