@@ -3,7 +3,7 @@
   Task Summary
 
 %p
-  =link_to "Export csv", summary_customer_tasks_path(@customer, :csv, {:start => params[:start], :end => params[:end]})
+  =link_to "Export csv", summary_customer_tasks_path(@customer, :csv, {:start => params[:start], :end => params[:end], :tag => params[:tag]})
 
 %table.data_table
   %thead
