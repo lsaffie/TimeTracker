@@ -170,12 +170,12 @@ class TasksController < ApplicationController
       format.html
       format.csv do
         csv_string = CSV.generate do |csv|
-          cols = ["Name", "Start", "End", "Total(min)"]
+          cols = ["Name", "Tag", "Start", "End", "Total(min)"]
           csv << cols
 
           @grouped_tasks.each do |start, tasks|
             tasks.each do |task|
-              csv << [task.name, task.start_at.to_s(:short), task.end_at.to_s(:short), ((task.end_at-task.start_at)/60).ceil]
+              csv << [task.name, task.tag_list.to_s, task.start_at.to_s(:short), task.end_at.to_s(:short), ((task.end_at-task.start_at)/60).ceil]
             end
           end
         end
