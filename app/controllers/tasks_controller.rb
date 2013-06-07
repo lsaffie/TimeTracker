@@ -7,7 +7,7 @@ class TasksController < ApplicationController
     @customer = Customer.find(params[:customer_id])
     @new_task = @customer.tasks.build
     @tasks = @customer.tasks(:order => "created_at").where(:completed => false)
-    @completed_tasks = Rails.cache.fetch("completed_tasks", :expires_in => 24.hours) {@customer.tasks(:order => "created_at").where(:completed => true).group_by(&:completed_at)}
+    @completed_tasks = @customer.tasks(:order => "created_at").page(params[:page]).per(50).where(:completed => true).group_by(&:completed_at)
 
     respond_to do |format|
       format.html # index.html.erb

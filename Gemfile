@@ -18,6 +18,7 @@ gem 'googlecharts'
 gem 'airbrake'
 
 gem 'acts-as-taggable-on', '~> 2.3.1'
+gem 'kaminari'
 # Use unicorn as the web server
 # gem 'unicorn'
 
