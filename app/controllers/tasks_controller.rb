@@ -208,10 +208,10 @@ private
       if params[:tag]
         return customer.tasks.tagged_with(params[:tag]).find(:all, :conditions => ['DATE(start_at) >= ? and DATE(start_at) <= ?',start_date, end_date])
       else
-        return customer.tasks.find(:all, :conditions => ['DATE(start_at) >= ? and DATE(start_at) <= ?',start_date, end_date])
+        return customer.tasks.where("DATE(start_at) >= ? and DATE(start_at) <= ?",start_date, end_date)
       end
     else
-      return customer.tasks
+      return customer.tasks.where("start_at >= ?", Time.now-2.months)
     end
   end
 
